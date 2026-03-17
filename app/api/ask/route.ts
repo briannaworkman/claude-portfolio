@@ -32,7 +32,11 @@ Interests: ${about.interests.join(', ')}`;
 }
 
 export async function POST(req: NextRequest) {
-  const ip = req.headers.get('x-forwarded-for') ?? req.headers.get('x-real-ip') ?? 'unknown';
+  // x-forwarded-for can be comma-separated (client, proxy1, proxy2…) — take only the first segment
+  const ip =
+    req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ??
+    req.headers.get('x-real-ip') ??
+    'unknown';
 
   if (!limiter.check(ip)) {
     return new Response('rate limit exceeded', { status: 429 });
