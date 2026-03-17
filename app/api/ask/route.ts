@@ -3,7 +3,6 @@ import type { NextRequest } from 'next/server';
 import { about } from '@/data/about';
 import { RateLimiter } from '@/lib/terminal/rate-limiter';
 
-const client = new Anthropic();
 const limiter = new RateLimiter({ maxRequests: 10, windowMs: 60_000 });
 
 function buildSystemPrompt(): string {
@@ -56,6 +55,12 @@ export async function POST(req: NextRequest) {
     return new Response('question too long', { status: 400 });
   }
 
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) {
+    return new Response('server misconfiguration', { status: 500 });
+  }
+
+  const client = new Anthropic({ apiKey });
   const stream = await client.messages.stream({
     model: 'claude-haiku-4-5-20251001',
     max_tokens: 300,
@@ -73,8 +78,9 @@ export async function POST(req: NextRequest) {
             controller.enqueue(encoder.encode(chunk.delta.text));
           }
         }
-      } finally {
         controller.close();
+      } catch (err) {
+        controller.error(err);
       }
     },
   });
