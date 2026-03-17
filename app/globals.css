@@ -1,0 +1,43 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-bg: #0a0a0a;
+  --color-surface: #1a1a1a;
+  --color-surface-hover: #222222;
+  --color-border: #2a2a2a;
+  --color-text-primary: #f0f0f0;
+  --color-text-muted: #6b6b6b;
+  --color-violet-400: #a78bfa;
+  --color-violet-500: #8b5cf6;
+  --color-violet-600: #7c3aed;
+  --color-amber-400: #fbbf24;
+  --color-amber-500: #f59e0b;
+
+  --font-sans: var(--font-geist-sans), sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
+
+  --shadow-claude: 0 0 12px rgba(139, 92, 246, 0.4);
+}
+
+@layer base {
+  body {
+    @apply bg-bg text-text-primary font-sans;
+  }
+
+  ::selection {
+    @apply bg-violet-600 text-white;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-surface;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-border rounded-full;
+  }
+}
