@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import matter from 'gray-matter';
+import { cache } from 'react';
 
 const BLOG_DIR = path.join(process.cwd(), 'content/blog');
 
@@ -49,7 +50,7 @@ export function getAllPostMetas(): PostMeta[] {
     .sort((a, b) => b.date.localeCompare(a.date));
 }
 
-export function getPost(slug: string): Post | null {
+export const getPost = cache(function getPost(slug: string): Post | null {
   const filePath = path.join(BLOG_DIR, `${slug}.mdx`);
   if (!fs.existsSync(filePath)) return null;
 
@@ -57,4 +58,4 @@ export function getPost(slug: string): Post | null {
   const { data, content } = matter(file);
 
   return { ...parsePostData(slug, data), content };
-}
+});

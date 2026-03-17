@@ -18,6 +18,7 @@ export function ProjectCard({ project }: Props) {
               href={project.repo}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={`${project.title} on GitHub`}
               className="text-xs hover:text-text-primary transition-colors"
             >
               GitHub ↗
@@ -28,6 +29,7 @@ export function ProjectCard({ project }: Props) {
               href={project.url}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={`${project.title} live site`}
               className="text-xs hover:text-text-primary transition-colors"
             >
               Live ↗

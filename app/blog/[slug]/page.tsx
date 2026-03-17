@@ -24,7 +24,9 @@ export default async function BlogPostPage({ params }: Props) {
   return (
     <article className="max-w-3xl mx-auto px-6 py-16">
       <header className="mb-10">
-        <time className="text-xs font-mono text-text-muted">{post.date}</time>
+        <time dateTime={post.date} className="text-xs font-mono text-text-muted">
+          {post.date}
+        </time>
         <h1 className="mt-2 text-4xl font-bold">{post.title}</h1>
       </header>
       <div className="prose prose-invert prose-violet max-w-none">
