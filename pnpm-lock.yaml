@@ -33,9 +33,6 @@ importers:
       '@playwright/test':
         specifier: ^1.58.2
         version: 1.58.2
-      '@rolldown/binding-darwin-arm64':
-        specifier: 1.0.0-rc.9
-        version: 1.0.0-rc.9
       '@tailwindcss/postcss':
         specifier: ^4
         version: 4.2.1
@@ -75,6 +72,10 @@ importers:
       vitest:
         specifier: ^4.1.0
         version: 4.1.0(@types/node@20.19.37)(jsdom@25.0.1)(vite@8.0.0(@types/node@20.19.37)(jiti@2.6.1)(yaml@2.8.2))
+    optionalDependencies:
+      '@rolldown/binding-darwin-arm64':
+        specifier: 1.0.0-rc.9
+        version: 1.0.0-rc.9
 
 packages:
 
@@ -2179,7 +2180,8 @@ snapshots:
   '@rolldown/binding-android-arm64@1.0.0-rc.9':
     optional: true
 
-  '@rolldown/binding-darwin-arm64@1.0.0-rc.9': {}
+  '@rolldown/binding-darwin-arm64@1.0.0-rc.9':
+    optional: true
 
   '@rolldown/binding-darwin-x64@1.0.0-rc.9':
     optional: true
