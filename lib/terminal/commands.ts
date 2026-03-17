@@ -75,12 +75,16 @@ async function handleAsk(question: string, onStream: StreamCallback): Promise<Ou
     const decoder = new TextDecoder();
     let done = false;
 
-    while (!done) {
-      const { value, done: doneReading } = await reader.read();
-      done = doneReading;
-      if (value) {
-        onStream(decoder.decode(value, { stream: true }));
+    try {
+      while (!done) {
+        const { value, done: doneReading } = await reader.read();
+        done = doneReading;
+        if (value) {
+          onStream(decoder.decode(value, { stream: true }));
+        }
       }
+    } finally {
+      reader.cancel();
     }
 
     return []; // stream handled via onStream callback
@@ -188,13 +192,14 @@ export async function runCommand(input: string, onStream: StreamCallback): Promi
       return [line(`opening ${social.linkedin}...`)];
 
     case 'resume': {
-      // HEAD request to verify the file exists before opening
-      const check = await fetch('/resume.pdf', { method: 'HEAD' });
-      if (!check.ok) {
-        return [line('error: resume.pdf not found.', 'error')];
+      try {
+        const check = await fetch('/resume.pdf', { method: 'HEAD' });
+        if (!check.ok) return [line('error: resume.pdf not found.', 'error')];
+        window.open('/resume.pdf', '_blank', 'noopener');
+        return [line('opening resume.pdf...')];
+      } catch {
+        return [line('error: could not verify resume. try again.', 'error')];
       }
-      window.open('/resume.pdf', '_blank', 'noopener');
-      return [line('opening resume.pdf...')];
     }
 
     case 'education':
