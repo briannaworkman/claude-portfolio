@@ -15,6 +15,25 @@ export type Post = PostMeta & {
   content: string;
 };
 
+function parseDate(value: unknown): string {
+  if (value instanceof Date) return value.toISOString().slice(0, 10);
+  return String(value);
+}
+
+function parsePostData(slug: string, data: Record<string, unknown>): PostMeta {
+  if (!data.title || !data.date || !data.description) {
+    throw new Error(
+      `Post "${slug}" is missing required frontmatter fields (title, date, description).`,
+    );
+  }
+  return {
+    slug,
+    title: String(data.title),
+    date: parseDate(data.date),
+    description: String(data.description),
+  };
+}
+
 export function getAllPostMetas(): PostMeta[] {
   if (!fs.existsSync(BLOG_DIR)) return [];
 
@@ -25,12 +44,7 @@ export function getAllPostMetas(): PostMeta[] {
       const slug = filename.replace(/\.mdx$/, '');
       const file = fs.readFileSync(path.join(BLOG_DIR, filename), 'utf8');
       const { data } = matter(file);
-      return {
-        slug,
-        title: data.title as string,
-        date: data.date as string,
-        description: data.description as string,
-      };
+      return parsePostData(slug, data);
     })
     .sort((a, b) => b.date.localeCompare(a.date));
 }
@@ -42,11 +56,5 @@ export function getPost(slug: string): Post | null {
   const file = fs.readFileSync(filePath, 'utf8');
   const { data, content } = matter(file);
 
-  return {
-    slug,
-    title: data.title as string,
-    date: data.date as string,
-    description: data.description as string,
-    content,
-  };
+  return { ...parsePostData(slug, data), content };
 }
