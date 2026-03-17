@@ -1,5 +1,11 @@
 # ✨ brianna.dev — Personal Portfolio
 
+[![CI](https://github.com/briannaworkman/claude-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/briannaworkman/claude-portfolio/actions/workflows/ci.yml)
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)](https://nextjs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38bdf8?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![Powered by Claude](https://img.shields.io/badge/Powered_by-Claude_Haiku-a78bfa?logo=anthropic&logoColor=white)](https://anthropic.com)
+
 A dark, bold personal portfolio with a secret: **it's also a terminal.** 🖥️✨
 
 Built with Next.js, powered by Claude, and designed to grow with me.
