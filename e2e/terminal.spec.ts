@@ -11,8 +11,7 @@ test.describe('Terminal mode', () => {
     await page.goto('/');
     await page.click('button:has-text("terminal")');
     await expect(page.getByTestId('terminal')).toBeVisible();
-    // Click the red dot (first button in the terminal chrome)
-    await page.locator('[data-testid="terminal"] button').first().click();
+    await page.getByRole('button', { name: 'Close terminal' }).click();
     await expect(page.getByTestId('terminal')).not.toBeVisible();
   });
 
