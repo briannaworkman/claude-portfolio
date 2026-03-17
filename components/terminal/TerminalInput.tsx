@@ -31,7 +31,7 @@ type Props = {
 export function TerminalInput({ onSubmit, disabled }: Props) {
   const [value, setValue] = useState('');
   const [history, setHistory] = useState<string[]>([]);
-  const [_historyIndex, setHistoryIndex] = useState(-1);
+  const [historyIndex, setHistoryIndex] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -52,21 +52,17 @@ export function TerminalInput({ onSubmit, disabled }: Props) {
 
     if (e.key === 'ArrowUp') {
       e.preventDefault();
-      setHistoryIndex((i) => {
-        const next = Math.min(i + 1, history.length - 1);
-        setValue(history[next] ?? '');
-        return next;
-      });
+      const next = Math.min(historyIndex + 1, history.length - 1);
+      setValue(history[next] ?? '');
+      setHistoryIndex(next);
       return;
     }
 
     if (e.key === 'ArrowDown') {
       e.preventDefault();
-      setHistoryIndex((i) => {
-        const next = Math.max(i - 1, -1);
-        setValue(next === -1 ? '' : (history[next] ?? ''));
-        return next;
-      });
+      const next = Math.max(historyIndex - 1, -1);
+      setValue(next === -1 ? '' : (history[next] ?? ''));
+      setHistoryIndex(next);
       return;
     }
 

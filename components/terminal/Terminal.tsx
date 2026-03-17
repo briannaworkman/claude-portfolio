@@ -16,21 +16,22 @@ export function Terminal() {
   const [isProcessing, setIsProcessing] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: scroll to bottom whenever lines change
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, []);
+  }, [lines]);
 
   async function handleSubmit(input: string) {
+    if (input === 'clear') {
+      setLines(WELCOME_LINES);
+      return;
+    }
+
     const inputLine: OutputLine = {
       id: crypto.randomUUID(),
       type: 'input',
       text: input,
     };
-
-    if (input === 'clear') {
-      setLines(WELCOME_LINES);
-      return;
-    }
 
     setLines((prev) => [...prev, inputLine]);
     setIsProcessing(true);
