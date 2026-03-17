@@ -186,7 +186,7 @@ If a social URL is `null`, the `open github` / `open linkedin` terminal command 
 
 The `/contact` page includes:
 - **Fields:** Name, Email, Message (all required)
-- **Submission:** Posts to a Vercel-hosted serverless function or uses a third-party form service (e.g. Formspree or Resend) — final choice deferred to implementation; the form component should accept a generic `onSubmit` handler to keep it decoupled
+- **Submission:** Posts to **Formspree** (free tier, 50 submissions/month — sufficient for a personal portfolio). No server-side code required; the form posts directly to a Formspree endpoint URL stored in an environment variable (`NEXT_PUBLIC_FORMSPREE_ENDPOINT`).
 - **Validation:** Client-side required field checks before submission; server returns HTTP 400 with field errors on invalid input
 - **Success state:** Inline confirmation message — "Thanks! I'll get back to you soon."
 - **Error state:** Inline error message — "Something went wrong. Try emailing me directly at [email]."
