@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 
 type Mode = 'web' | 'terminal';
 
@@ -21,13 +21,13 @@ export function ModeProvider({ children }: { children: React.ReactNode }) {
     if (stored === 'terminal') setMode('terminal');
   }, []);
 
-  const toggle = () => {
+  const toggle = useCallback(() => {
     setMode((prev) => {
       const next = prev === 'web' ? 'terminal' : 'web';
       localStorage.setItem(STORAGE_KEY, next);
       return next;
     });
-  };
+  }, []);
 
   return <ModeContext.Provider value={{ mode, toggle }}>{children}</ModeContext.Provider>;
 }

@@ -26,7 +26,10 @@ export function Navbar() {
   }, [toggle]);
 
   return (
-    <nav className="fixed top-0 inset-x-0 z-40 border-b border-border bg-bg/80 backdrop-blur-sm">
+    <nav
+      aria-label="Main navigation"
+      className="fixed top-0 inset-x-0 z-40 border-b border-border bg-bg/80 backdrop-blur-sm"
+    >
       <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
         <Link href="/" className="font-mono text-violet-400 font-semibold tracking-tight">
           brianna.dev
@@ -55,6 +58,7 @@ export function Navbar() {
           <button
             type="button"
             onClick={toggle}
+            aria-label={mode === 'web' ? 'Switch to terminal mode' : 'Switch to web mode'}
             className="text-xs font-mono px-3 py-1.5 rounded border border-border hover:border-violet-500 text-text-muted hover:text-violet-400 transition-all"
             title="Toggle terminal mode (Ctrl+`)"
           >

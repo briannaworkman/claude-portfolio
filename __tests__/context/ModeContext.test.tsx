@@ -30,4 +30,12 @@ describe('ModeContext', () => {
     act(() => result.current.toggle());
     expect(localStorage.getItem('portfolio-mode')).toBe('terminal');
   });
+
+  it('restores terminal mode from localStorage on mount', async () => {
+    localStorage.setItem('portfolio-mode', 'terminal');
+    const { result } = renderHook(() => useMode(), { wrapper: ModeProvider });
+    // useEffect runs after mount — wait for it
+    await act(async () => {});
+    expect(result.current.mode).toBe('terminal');
+  });
 });
