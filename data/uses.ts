@@ -6,10 +6,7 @@ export type UsesCategory = {
 export const usesCategories: UsesCategory[] = [
   {
     name: 'Editor',
-    items: [
-      { name: 'Cursor', description: 'AI-native editor — my daily driver.' },
-      { name: 'Claude Code', description: 'For bigger refactors and feature work.' },
-    ],
+    items: [{ name: 'Cursor', description: 'AI-native editor — my daily driver.' }],
   },
   {
     name: 'Terminal',
