@@ -17,6 +17,7 @@ export type Education = {
 export type About = {
   name: string;
   title: string;
+  location: string;
   bio: string;
   availability: Availability;
   experience: Experience[];
@@ -25,8 +26,9 @@ export type About = {
 };
 
 export const about: About = {
-  name: 'Brianna Workman',
+  name: 'Bri Workman',
   title: 'Software Engineer',
+  location: 'Detroit Metropolitan Area',
   bio: 'Frontend-focused software engineer who loves building with AI. I use Claude heavily in my workflow and am passionate about finding new ways AI can improve how we build software.',
   availability: 'not-looking',
   experience: [
