@@ -1,0 +1,73 @@
+---
+title: "I Let Claude Build My Portfolio. Here's What It Actually Produced."
+date: 2026-03-17
+description: Skip the hype. Here's an honest look at what AI-built software actually looks like — tests, architecture, security fixes, CI/CD, and all.
+---
+
+"But is it actually good?"
+
+That's the question nobody answers when they talk about AI-generated code. Not "does it run" (anyone can get something running). Does it hold up? Does it handle edge cases? Would you be comfortable putting your name on it? Would a senior engineer look at it and not wince?
+
+I built this portfolio entirely through structured AI collaboration. Here's an honest look at what came out.
+
+## What Was Built
+
+The site runs on Next.js 15 with the App Router, Tailwind CSS v4, TypeScript, Biome for linting, and deploys to Vercel. It has two modes: a standard web portfolio (landing, projects, blog, uses, contact) and an interactive terminal with 16 commands, including an `ask` command powered by the Anthropic API that streams responses about me in real time.
+
+The constraints that make this non-trivial: the App Router's RSC/client component boundary requires careful placement of `'use client'`; the streaming API requires proper stream handling and error propagation; the terminal needs rate limiting, tab autocomplete, and keyboard history navigation; the blog renders MDX. None of this is "generate a hello world."
+
+## The Receipts
+
+### Tests
+
+29 unit tests (Vitest + Testing Library) and 14 E2E tests (Playwright). Not just happy-path coverage.
+
+Unit tests include: the sliding window rate limiter's windowing logic and expiry behavior, the command parser's handling of multi-word commands (`ls projects`, `open github`), empty input, and unknown commands. E2E tests include the terminal's full interaction flow (open, type a command, verify output) with the `/api/ask` endpoint stubbed via Playwright's `page.route()` to avoid live API calls in CI.
+
+All 43 tests pass. The CI pipeline enforces it on every push.
+
+### Architecture
+
+The RSC/client split is correct: data-fetching components are server components; the terminal overlay (which needs browser APIs, event listeners, and state) is a client component. This isn't something you can get wrong and have it work. The framework will tell you.
+
+`React.cache()` wraps the `getPost()` function in `lib/mdx.ts`. This matters because Next.js calls both `generateMetadata()` and the page component for each blog post route. Without the cache, the MDX file gets read from disk twice per page load. With it, the second call is free.
+
+The `/api/ask` rate limiter uses a sliding window algorithm: a `Map<string, number[]>` where each entry is a list of request timestamps, pruned to the current window on every check. This is more accurate than a fixed window. A burst at 12:00:59 followed by another at 12:01:01 shouldn't reset the counter.
+
+### Security
+
+Three issues were caught during code review, not by me manually, but by the review process:
+
+The rate limiter was using the full `x-forwarded-for` header as its key. That header is comma-separated when there are multiple proxies (`client, proxy1, proxy2`). Using the full string as a key means an attacker could bypass the rate limit by appending different fake proxy IPs. Fix: split on comma, take the first segment.
+
+Mid-stream errors from the Anthropic API were silently producing truncated 200 responses. The original pattern used `try/finally { controller.close() }` with no catch. An error would close the stream normally, and the client would receive a partial response with no error signal. Fix: `try { controller.close() } catch (err) { controller.error(err) }`.
+
+The Anthropic client was instantiated at module scope: `const client = new Anthropic({ apiKey })`. If `ANTHROPIC_API_KEY` is unset, this crashes on import before the `POST` handler can return a structured 500. Fix: move instantiation inside the handler, after an explicit env var check.
+
+None of these are catastrophic. All of them are the kind of thing that gets caught in a real code review, which is exactly what caught them.
+
+### CI/CD
+
+The project ships with a GitHub Actions pipeline at `.github/workflows/ci.yml`. It runs on every push and pull request to `main`. Stages: Biome lint check, Vitest unit tests, Playwright E2E tests (against a full Next.js production build), and pnpm frozen lockfile enforcement. Vercel handles deployment automatically on merge to `main`.
+
+No manual steps to ship. No "works on my machine."
+
+## What Still Required a Human
+
+Honest version: a lot of the important stuff.
+
+**Design taste.** The dark color palette, the violet/amber accent combination, the decision to do a "premium, not cluttered" aesthetic were my calls. The AI executed them, but didn't invent them.
+
+**Personal content.** The bio, the projects list, my actual work history, the words on every page. AI doesn't know what I've built or how I'd describe myself. That content is irreducibly mine.
+
+**Judgment calls the plan didn't anticipate.** Mid-implementation, it turned out that `node:fs` can't be bundled for client components, but the terminal's `blog` command needed to list blog posts. The plan said to call a shared data function; the actual constraint required adding a `/api/posts` route instead. The plan was wrong, and a human in the loop caught it and corrected course.
+
+The workflow removes friction. It doesn't remove authorship.
+
+## Judge for Yourself
+
+The code is public: [github.com/briannaworkman/claude-portfolio](https://github.com/briannaworkman/claude-portfolio)
+
+The exact commit where this landed is tagged as the [v1.0.0 release](https://github.com/briannaworkman/claude-portfolio/releases/tag/v1.0.0).
+
+If you want to understand the workflow that produced it (the brainstorm, the spec, the plan), that's the companion post: [Brainstorm → Spec → Plan → Ship: The AI Workflow That Actually Works](/blog/brainstorm-spec-plan-ship)

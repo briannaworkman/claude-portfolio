@@ -1,0 +1,86 @@
+---
+title: "Brainstorm → Spec → Plan → Ship: The AI Workflow That Actually Works"
+date: 2026-03-17
+description: How I built an entire portfolio site without ever staring at a blank file — using a structured AI collaboration workflow that actually produces production-quality output.
+---
+
+I built this entire site without ever staring at a blank file.
+
+No "okay, what should the folder structure be?" No opening a new `index.tsx` and wondering where to start. The project went from a vague idea ("I want a portfolio, something different, maybe with a terminal?") to a deployed Next.js app with 29 unit tests, 14 E2E tests, a Claude-powered `ask` command, and a working CI pipeline. All of it produced through a structured four-stage workflow.
+
+Most AI-assisted development doesn't work this way. The typical pattern is ad-hoc: you have an idea, you type it into a chat window, you get some code back, you tweak it, you ask again. It works until it doesn't. And when it breaks, you're debugging code you don't fully understand with an AI that's lost track of what you were trying to build. The output reflects the process: functional in spots, inconsistent across the whole.
+
+There's a better way. Here's the workflow I used, and what it actually looks like in practice.
+
+## The Four Stages
+
+**Brainstorm** turns a vague idea into a concrete design through dialogue. Not "generate me a portfolio app," but back-and-forth conversation: What's the audience? What's the defining feature? What are the constraints? What should it definitely *not* do? The output is a design document that captures everything decided.
+
+**Spec** is where that design gets written down formally. Every component, every data shape, every edge case, every error message. If it's not in the spec, it won't get built. The spec isn't code. It's a contract between you and the AI about exactly what you're trying to produce.
+
+**Plan** breaks the spec into bite-sized implementation tasks. Not "build the terminal," but: create this file, write this test, run this command, expect this output, commit. Each task is small enough to verify independently and specific enough that there's no ambiguity about whether it's done.
+
+**Ship** is execution: a fresh AI agent per task, two rounds of review before anything gets marked complete (spec compliance first, then code quality), and a final pass before merge. No vibes, no "looks good to me." Every task either passes review or goes back for fixes.
+
+## What This Actually Looks Like
+
+Let me show you the real artifacts, not hypotheticals.
+
+### Brainstorm
+
+Here's a passage from the design document that came out of the brainstorm for this project:
+
+> The defining feature is **dual-mode rendering**: a traditional web portfolio and an interactive terminal portfolio, toggled like a theme switch. Both modes read from the same content layer.
+
+That decision shaped everything downstream. The terminal commands and the web pages don't duplicate data; they both read from the same TypeScript files in `data/`. That kind of architectural decision is exactly what the brainstorm is for: surfacing it early, before any code exists, when it's cheap to get right.
+
+### Spec
+
+The design document then gets turned into a full spec with implementation details. Here's what the spec says about the `ask` command's rate limiting:
+
+> **Rate limiting:** The Route Handler applies an IP-based rate limit using a **sliding window** of 10 requests per 60 seconds, implemented with an in-memory store. If the limit is hit, the server returns HTTP 429 and the terminal prints: `error: rate limit exceeded. try again in a minute.`
+
+This isn't vague. The algorithm is named (sliding window). The numbers are decided (10 req/60s). The error message is specified as an exact string. By the time an AI agent starts writing code, there are no ambiguous decisions left.
+
+### Plan
+
+The implementation plan breaks the spec into tasks that look like this:
+
+```
+### Task 1.1: Initialize Next.js project
+
+Files:
+- Creates: entire project scaffold
+
+- [ ] Step 1: Scaffold Next.js with pnpm
+- [ ] Step 2: Verify it runs
+      Expected: server starts at http://localhost:3000
+- [ ] Step 3: Remove boilerplate
+- [ ] Step 4: Commit
+```
+
+Each task is one thing. Each step is one action. The expected output is specified. There's no guesswork.
+
+### Ship
+
+Execution used a subagent-driven development approach: each task was dispatched to a fresh AI agent with exactly the context it needed, no more and no less. After implementation, two reviewers (also AI agents) checked the work: first for spec compliance (did it build what was asked?), then for code quality (is it well-built?). Tasks with issues went back to the implementer. Tasks that passed both reviews got marked done and committed.
+
+The result: 29 unit tests, 14 E2E tests, a working streaming API, a sliding window rate limiter, tab autocomplete, keyboard history navigation, and a CI pipeline. All produced from a plan, not improvised.
+
+## What Surprised Me
+
+**The review process caught real bugs I didn't notice.** During the Ship stage, a code quality reviewer flagged a security issue: the rate limiter was using the full `x-forwarded-for` header as its key. That header is comma-separated when there are multiple proxies, and an attacker could append fake IPs to bypass the limit. I hadn't caught it. The review did.
+
+**Human judgment still mattered.** The AI didn't know what the portfolio should look like, what my bio says, or what projects I'm proud of. Design taste, personal content, and any decision the spec didn't anticipate were still mine to make. The workflow removes the blank-page paralysis; it doesn't remove the human.
+
+**Something did go sideways.** After merging to main, CI failed: the pnpm lockfile was out of sync because a dependency had moved from `devDependencies` to `optionalDependencies`. One extra push to fix it. Not magic, but a recoverable problem with a clear fix.
+
+## Follow the Journey
+
+The full workflow artifacts are in the repo if you want to see how the sausage was made:
+
+- Brainstorm + spec: `docs/superpowers/specs/`
+- Implementation plan: `docs/superpowers/plans/`
+- The tagged commit where this all landed: [v1.0.0 release](https://github.com/briannaworkman/claude-portfolio/releases/tag/v1.0.0)
+
+If you want to see what the output actually looks like (the tests, the architecture, the security fixes), check out the companion post: [I Let Claude Build My Portfolio. Here's What It Actually Produced.](/blog/i-let-claude-build-my-portfolio)
