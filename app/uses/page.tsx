@@ -16,7 +16,7 @@ export default function UsesPage() {
       <div className="space-y-10">
         {usesCategories.map((category) => (
           <section key={category.name}>
-            <h2 className="text-xs font-mono text-amber-400 uppercase tracking-wider mb-4">
+            <h2 className="text-xs font-mono text-violet-400 uppercase tracking-wider mb-4">
               {category.name}
             </h2>
             <ul className="space-y-4">

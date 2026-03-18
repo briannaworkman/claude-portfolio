@@ -76,7 +76,7 @@ export function TerminalInput({ onSubmit, disabled }: Props) {
 
   return (
     <div className="flex items-center gap-2 font-mono text-sm">
-      <span className="text-amber-400 select-none shrink-0">{'>'}</span>
+      <span className="text-violet-400 select-none shrink-0">{'>'}</span>
       <input
         ref={inputRef}
         type="text"
@@ -85,7 +85,7 @@ export function TerminalInput({ onSubmit, disabled }: Props) {
         onKeyDown={handleKeyDown}
         disabled={disabled}
         placeholder={disabled ? '' : 'type a command...'}
-        className="flex-1 bg-transparent outline-none text-white placeholder:text-text-muted caret-amber-400"
+        className="flex-1 bg-transparent outline-none text-white placeholder:text-text-muted caret-violet-400"
         autoCapitalize="none"
         autoCorrect="off"
         spellCheck={false}

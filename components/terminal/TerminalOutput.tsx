@@ -22,7 +22,7 @@ export function TerminalOutput({ lines }: Props) {
                 : 'text-text-primary/80'
           }
         >
-          {line.type === 'input' && <span className="text-amber-400 mr-2 select-none">{'>'}</span>}
+          {line.type === 'input' && <span className="text-violet-400 mr-2 select-none">{'>'}</span>}
           <span style={{ whiteSpace: 'pre-wrap' }}>{line.text}</span>
         </div>
       ))}

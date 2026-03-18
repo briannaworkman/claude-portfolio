@@ -18,7 +18,7 @@ export default function ContactPage() {
         <ContactForm />
 
         <div className="space-y-4">
-          <h2 className="text-sm font-mono text-amber-400 uppercase tracking-wider">Elsewhere</h2>
+          <h2 className="text-sm font-mono text-violet-400 uppercase tracking-wider">Elsewhere</h2>
           <ul className="space-y-2">
             {social.github && (
               <li>
