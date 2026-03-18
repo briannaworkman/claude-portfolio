@@ -39,7 +39,9 @@ export function Navbar() {
       dialog.close();
       document.body.style.overflow = '';
     }
-    return () => { document.body.style.overflow = ''; };
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, [menuOpen]);
 
   // Sync state when dialog is closed natively (e.g. Escape key)
@@ -111,12 +113,30 @@ export function Navbar() {
           aria-haspopup="dialog"
         >
           {menuOpen ? (
-            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            <svg
+              aria-hidden="true"
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+            >
               <line x1="4" y1="4" x2="16" y2="16" />
               <line x1="16" y1="4" x2="4" y2="16" />
             </svg>
           ) : (
-            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            <svg
+              aria-hidden="true"
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+            >
               <line x1="3" y1="6" x2="17" y2="6" />
               <line x1="3" y1="10" x2="17" y2="10" />
               <line x1="3" y1="14" x2="17" y2="14" />
@@ -153,7 +173,10 @@ export function Navbar() {
             </a>
             <button
               type="button"
-              onClick={() => { toggle(); setMenuOpen(false); }}
+              onClick={() => {
+                toggle();
+                setMenuOpen(false);
+              }}
               aria-label={mode === 'web' ? 'Switch to terminal mode' : 'Switch to web mode'}
               className="text-xs font-mono px-3 py-1.5 rounded border border-border hover:border-violet-500 text-text-muted hover:text-violet-400 transition-all self-start"
             >
