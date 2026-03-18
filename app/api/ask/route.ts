@@ -23,12 +23,13 @@ function buildSystemPrompt(): string {
     .map((e) => `${e.degree} from ${e.institution}, ${e.graduationYear}`)
     .join('\n');
 
-  const skills = skillCategories
-    .map((c) => `${c.name}: ${c.skills.join(', ')}`)
-    .join('\n');
+  const skills = skillCategories.map((c) => `${c.name}: ${c.skills.join(', ')}`).join('\n');
 
   const projectList = projects
-    .map((p) => `${p.title} — ${p.description}${p.url ? ` (${p.url})` : ''}${p.repo ? ` | repo: ${p.repo}` : ''}`)
+    .map(
+      (p) =>
+        `${p.title} — ${p.description}${p.url ? ` (${p.url})` : ''}${p.repo ? ` | repo: ${p.repo}` : ''}`,
+    )
     .join('\n');
 
   return `You are answering questions on behalf of ${about.name}, a ${about.title}.
