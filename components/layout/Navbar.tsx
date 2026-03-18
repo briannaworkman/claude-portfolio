@@ -67,8 +67,8 @@ export function Navbar() {
       className="fixed top-0 inset-x-0 z-40 border-b border-border bg-bg/80 backdrop-blur-sm"
     >
       <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
-        <Link href="/" className="font-mono text-violet-400 font-semibold tracking-tight">
-          brianna.dev
+        <Link href="/" className="font-mono text-3xl text-violet-400 font-semibold tracking-tight">
+          ⬡
         </Link>
 
         {/* Desktop nav */}
