@@ -16,9 +16,9 @@ The site runs on Next.js 15 with the App Router, Tailwind CSS v4, TypeScript, Bi
 
 The constraints that make this non-trivial: the App Router's RSC/client component boundary requires careful placement of `'use client'`; the streaming API requires proper stream handling and error propagation; the terminal needs rate limiting, tab autocomplete, and keyboard history navigation; the blog renders MDX. None of this is "generate a hello world."
 
-## The Receipts
+## The Receipts 🧾
 
-### Tests
+### 🧪 Tests
 
 29 unit tests (Vitest + Testing Library) and 14 E2E tests (Playwright). Not just happy-path coverage.
 
@@ -26,7 +26,7 @@ Unit tests include: the sliding window rate limiter's windowing logic and expiry
 
 All 43 tests pass. The CI pipeline enforces it on every push.
 
-### Architecture
+### 🏗️ Architecture
 
 The RSC/client split is correct: data-fetching components are server components; the terminal overlay (which needs browser APIs, event listeners, and state) is a client component. This isn't something you can get wrong and have it work. The framework will tell you.
 
@@ -34,7 +34,7 @@ The RSC/client split is correct: data-fetching components are server components;
 
 The `/api/ask` rate limiter uses a sliding window algorithm: a `Map<string, number[]>` where each entry is a list of request timestamps, pruned to the current window on every check. This is more accurate than a fixed window. A burst at 12:00:59 followed by another at 12:01:01 shouldn't reset the counter.
 
-### Security
+### 🔒 Security
 
 Three issues were caught during code review, not by me manually, but by the review process:
 
@@ -46,7 +46,7 @@ The Anthropic client was instantiated at module scope: `const client = new Anthr
 
 None of these are catastrophic. All of them are the kind of thing that gets caught in a real code review, which is exactly what caught them.
 
-### CI/CD
+### 🚀 CI/CD
 
 The project ships with a GitHub Actions pipeline at `.github/workflows/ci.yml`. It runs on every push and pull request to `main`. Stages: Biome lint check, Vitest unit tests, Playwright E2E tests (against a full Next.js production build), and pnpm frozen lockfile enforcement. Vercel handles deployment automatically on merge to `main`.
 
@@ -56,15 +56,15 @@ No manual steps to ship. No "works on my machine."
 
 Honest version: a lot of the important stuff.
 
-**Design taste.** The dark color palette, the violet accent color, the decision to do a "premium, not cluttered" aesthetic were my calls. The AI executed them, but didn't invent them.
+🎨 **Design taste.** The dark color palette, the violet accent color, the decision to do a "premium, not cluttered" aesthetic were my calls. The AI executed them, but didn't invent them.
 
-**Personal content.** The bio, the projects list, my actual work history, the words on every page. AI doesn't know what I've built or how I'd describe myself. That content is irreducibly mine.
+📝 **Personal content.** The bio, the projects list, my actual work history, the words on every page. AI doesn't know what I've built or how I'd describe myself. That content is irreducibly mine.
 
-**Judgment calls the plan didn't anticipate.** Mid-implementation, it turned out that `node:fs` can't be bundled for client components, but the terminal's `blog` command needed to list blog posts. The plan said to call a shared data function; the actual constraint required adding a `/api/posts` route instead. The plan was wrong, and a human in the loop caught it and corrected course.
+🤔 **Judgment calls the plan didn't anticipate.** Mid-implementation, it turned out that `node:fs` can't be bundled for client components, but the terminal's `blog` command needed to list blog posts. The plan said to call a shared data function; the actual constraint required adding a `/api/posts` route instead. The plan was wrong, and a human in the loop caught it and corrected course.
 
 The workflow removes friction. It doesn't remove authorship.
 
-## Judge for Yourself
+## Judge for Yourself 👀
 
 The code is public: [github.com/briannaworkman/claude-portfolio](https://github.com/briannaworkman/claude-portfolio)
 

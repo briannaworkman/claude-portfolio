@@ -14,19 +14,19 @@ There's a better way. Here's the workflow I used, and what it actually looks lik
 
 ## The Four Stages
 
-**Brainstorm** turns a vague idea into a concrete design through dialogue. Not "generate me a portfolio app," but back-and-forth conversation: What's the audience? What's the defining feature? What are the constraints? What should it definitely *not* do? The output is a design document that captures everything decided.
+🧠 **Brainstorm** turns a vague idea into a concrete design through dialogue. Not "generate me a portfolio app," but back-and-forth conversation: What's the audience? What's the defining feature? What are the constraints? What should it definitely *not* do? The output is a design document that captures everything decided.
 
-**Spec** is where that design gets written down formally. Every component, every data shape, every edge case, every error message. If it's not in the spec, it won't get built. The spec isn't code. It's a contract between you and the AI about exactly what you're trying to produce.
+📄 **Spec** is where that design gets written down formally. Every component, every data shape, every edge case, every error message. If it's not in the spec, it won't get built. The spec isn't code. It's a contract between you and the AI about exactly what you're trying to produce.
 
-**Plan** breaks the spec into bite-sized implementation tasks. Not "build the terminal," but: create this file, write this test, run this command, expect this output, commit. Each task is small enough to verify independently and specific enough that there's no ambiguity about whether it's done.
+📋 **Plan** breaks the spec into bite-sized implementation tasks. Not "build the terminal," but: create this file, write this test, run this command, expect this output, commit. Each task is small enough to verify independently and specific enough that there's no ambiguity about whether it's done.
 
-**Ship** is execution: a fresh AI agent per task, two rounds of review before anything gets marked complete (spec compliance first, then code quality), and a final pass before merge. No vibes, no "looks good to me." Every task either passes review or goes back for fixes.
+🚀 **Ship** is execution: a fresh AI agent per task, two rounds of review before anything gets marked complete (spec compliance first, then code quality), and a final pass before merge. No vibes, no "looks good to me." Every task either passes review or goes back for fixes.
 
 ## What This Actually Looks Like
 
 Let me show you the real artifacts, not hypotheticals.
 
-### Brainstorm
+### 🧠 Brainstorm
 
 Here's a passage from the design document that came out of the brainstorm for this project:
 
@@ -34,7 +34,7 @@ Here's a passage from the design document that came out of the brainstorm for th
 
 That decision shaped everything downstream. The terminal commands and the web pages don't duplicate data; they both read from the same TypeScript files in `data/`. That kind of architectural decision is exactly what the brainstorm is for: surfacing it early, before any code exists, when it's cheap to get right.
 
-### Spec
+### 📄 Spec
 
 The design document then gets turned into a full spec with implementation details. Here's what the spec says about the `ask` command's rate limiting:
 
@@ -42,7 +42,7 @@ The design document then gets turned into a full spec with implementation detail
 
 This isn't vague. The algorithm is named (sliding window). The numbers are decided (10 req/60s). The error message is specified as an exact string. By the time an AI agent starts writing code, there are no ambiguous decisions left.
 
-### Plan
+### 📋 Plan
 
 The implementation plan breaks the spec into tasks that look like this:
 
@@ -61,7 +61,7 @@ Files:
 
 Each task is one thing. Each step is one action. The expected output is specified. There's no guesswork.
 
-### Ship
+### 🚀 Ship
 
 Execution used a subagent-driven development approach: each task was dispatched to a fresh AI agent with exactly the context it needed, no more and no less. After implementation, two reviewers (also AI agents) checked the work: first for spec compliance (did it build what was asked?), then for code quality (is it well-built?). Tasks with issues went back to the implementer. Tasks that passed both reviews got marked done and committed.
 
@@ -69,18 +69,18 @@ The result: 29 unit tests, 14 E2E tests, a working streaming API, a sliding wind
 
 ## What Surprised Me
 
-**The review process caught real bugs I didn't notice.** During the Ship stage, a code quality reviewer flagged a security issue: the rate limiter was using the full `x-forwarded-for` header as its key. That header is comma-separated when there are multiple proxies, and an attacker could append fake IPs to bypass the limit. I hadn't caught it. The review did.
+🔍 **The review process caught real bugs I didn't notice.** During the Ship stage, a code quality reviewer flagged a security issue: the rate limiter was using the full `x-forwarded-for` header as its key. That header is comma-separated when there are multiple proxies, and an attacker could append fake IPs to bypass the limit. I hadn't caught it. The review did.
 
-**Human judgment still mattered.** The AI didn't know what the portfolio should look like, what my bio says, or what projects I'm proud of. Design taste, personal content, and any decision the spec didn't anticipate were still mine to make. The workflow removes the blank-page paralysis; it doesn't remove the human.
+🧑‍💻 **Human judgment still mattered.** The AI didn't know what the portfolio should look like, what my bio says, or what projects I'm proud of. Design taste, personal content, and any decision the spec didn't anticipate were still mine to make. The workflow removes the blank-page paralysis; it doesn't remove the human.
 
-**Something did go sideways.** After merging to main, CI failed: the pnpm lockfile was out of sync because a dependency had moved from `devDependencies` to `optionalDependencies`. One extra push to fix it. Not magic, but a recoverable problem with a clear fix.
+😅 **Something did go sideways.** After merging to main, CI failed: the pnpm lockfile was out of sync because a dependency had moved from `devDependencies` to `optionalDependencies`. One extra push to fix it. Not magic, but a recoverable problem with a clear fix.
 
 ## Follow the Journey
 
 The full workflow artifacts are in the repo if you want to see how the sausage was made:
 
-- Brainstorm + spec: `docs/superpowers/specs/`
-- Implementation plan: `docs/superpowers/plans/`
-- The tagged commit where this all landed: [v1.0.0 release](https://github.com/briannaworkman/claude-portfolio/releases/tag/v1.0.0)
+- 🧠 Brainstorm + spec: `docs/superpowers/specs/`
+- 📋 Implementation plan: `docs/superpowers/plans/`
+- 🏷️ The tagged commit where this all landed: [v1.0.0 release](https://github.com/briannaworkman/claude-portfolio/releases/tag/v1.0.0)
 
 If you want to see what the output actually looks like (the tests, the architecture, the security fixes), check out the companion post: [I Let Claude Build My Portfolio. Here's What It Actually Produced.](/blog/i-let-claude-build-my-portfolio)
