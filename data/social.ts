@@ -6,6 +6,6 @@ export type Social = {
 
 export const social: Social = {
   github: 'https://github.com/briannaworkman',
-  linkedin: 'https://linkedin.com/in/briannaworkman',
-  email: 'hello@briannaworkman.dev',
+  linkedin: 'https://www.linkedin.com/in/bri-workman/',
+  email: 'hello.briworkman@gmail.com',
 };
