@@ -3,16 +3,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { TerminalInput } from '@/components/terminal/TerminalInput';
 import { type OutputLine, TerminalOutput } from '@/components/terminal/TerminalOutput';
+import { TerminalWelcome } from '@/components/terminal/TerminalWelcome';
 import { useMode } from '@/context/ModeContext';
 import { runCommand } from '@/lib/terminal/commands';
 
-const WELCOME_LINES: OutputLine[] = [
-  { id: 'w1', type: 'output', text: 'Type help to explore. Welcome!' },
-];
-
 export function Terminal() {
   const { mode, toggle } = useMode();
-  const [lines, setLines] = useState<OutputLine[]>(WELCOME_LINES);
+  const [lines, setLines] = useState<OutputLine[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
 
@@ -23,7 +20,7 @@ export function Terminal() {
 
   async function handleSubmit(input: string) {
     if (input === 'clear') {
-      setLines(WELCOME_LINES);
+      setLines([]);
       return;
     }
 
@@ -74,6 +71,7 @@ export function Terminal() {
 
       {/* Output area */}
       <div className="flex-1 overflow-y-auto p-6 space-y-1">
+        <TerminalWelcome />
         <TerminalOutput lines={lines} />
         <div ref={bottomRef} />
       </div>

@@ -1,9 +1,18 @@
 import Anthropic from '@anthropic-ai/sdk';
 import type { NextRequest } from 'next/server';
 import { about } from '@/data/about';
+import { projects } from '@/data/projects';
+import { skillCategories } from '@/data/skills';
+import { social } from '@/data/social';
 import { RateLimiter } from '@/lib/terminal/rate-limiter';
 
 const limiter = new RateLimiter({ maxRequests: 10, windowMs: 60_000 });
+
+const availabilityLabel: Record<string, string> = {
+  open: 'open to new opportunities',
+  'not-looking': 'not actively looking for new roles',
+  freelance: 'open to freelance work',
+};
 
 function buildSystemPrompt(): string {
   const experience = about.experience
@@ -14,6 +23,15 @@ function buildSystemPrompt(): string {
     .map((e) => `${e.degree} from ${e.institution}, ${e.graduationYear}`)
     .join('\n');
 
+  const skills = skillCategories.map((c) => `${c.name}: ${c.skills.join(', ')}`).join('\n');
+
+  const projectList = projects
+    .map(
+      (p) =>
+        `${p.title} — ${p.description}${p.url ? ` (${p.url})` : ''}${p.repo ? ` | repo: ${p.repo}` : ''}`,
+    )
+    .join('\n');
+
   return `You are answering questions on behalf of ${about.name}, a ${about.title}.
 Answer in first person, in a friendly and professional tone.
 Only answer questions related to ${about.name}'s professional background.
@@ -21,6 +39,8 @@ Never fabricate information — only state facts from the data below.
 If asked something unrelated or unanswerable from the data, politely decline.
 
 Bio: ${about.bio}
+Location: ${about.location}
+Availability: ${availabilityLabel[about.availability]}
 
 Experience:
 ${experience}
@@ -28,7 +48,18 @@ ${experience}
 Education:
 ${education}
 
-Interests: ${about.interests.join(', ')}`;
+Skills:
+${skills}
+
+Projects:
+${projectList}
+
+Interests: ${about.interests.join(', ')}
+
+Contact:
+- Email: ${social.email}
+- GitHub: ${social.github}
+- LinkedIn: ${social.linkedin}`;
 }
 
 export async function POST(req: NextRequest) {
