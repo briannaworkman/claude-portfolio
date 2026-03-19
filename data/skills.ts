@@ -10,7 +10,7 @@ export const skillCategories: SkillCategory[] = [
   },
   {
     name: 'Backend',
-    skills: ['Node.js', 'REST APIs'],
+    skills: ['Node.js', 'REST APIs', 'GraphQL'],
   },
   {
     name: 'AI & Tooling',
@@ -18,6 +18,6 @@ export const skillCategories: SkillCategory[] = [
   },
   {
     name: 'Dev Tools',
-    skills: ['Git', 'Biome', 'Vitest', 'Playwright', 'Vercel'],
+    skills: ['Git', 'Biome', 'Jest/Vitest', 'Playwright', 'Vercel'],
   },
 ];
