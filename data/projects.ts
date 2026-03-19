@@ -21,7 +21,6 @@ export const projects: Project[] = [
     slug: 'claude-portfolio',
     title: 'Claude Portfolio',
     description: 'This portfolio — built from scratch with Claude Code.',
-    url: 'https://briannaworkman.dev',
     repo: 'https://github.com/briannaworkman/claude-portfolio',
     tags: ['Next.js', 'TypeScript', 'Tailwind'],
     featured: true,
