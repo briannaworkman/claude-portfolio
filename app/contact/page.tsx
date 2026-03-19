@@ -3,7 +3,7 @@ import { ContactForm } from '@/components/web/ContactForm';
 import { social } from '@/data/social';
 
 export const metadata: Metadata = {
-  title: 'Contact — Brianna Workman',
+  title: 'Contact — Bri Workman',
 };
 
 export default function ContactPage() {

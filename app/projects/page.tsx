@@ -3,7 +3,7 @@ import { ProjectCard } from '@/components/web/ProjectCard';
 import { projects } from '@/data/projects';
 
 export const metadata: Metadata = {
-  title: 'Projects — Brianna Workman',
+  title: 'Projects — Bri Workman',
 };
 
 export default function ProjectsPage() {

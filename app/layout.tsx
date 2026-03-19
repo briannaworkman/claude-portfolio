@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Brianna Workman — Software Engineer',
+  title: 'Bri Workman — Software Engineer',
   description:
     'Frontend-focused software engineer building with AI. Explore my projects, writing, and workflow.',
 };

@@ -193,9 +193,9 @@ export async function runCommand(input: string, onStream: StreamCallback): Promi
 
     case 'resume': {
       try {
-        const check = await fetch('/resume.pdf', { method: 'HEAD' });
+        const check = await fetch('/Brianna_Workman-Resume.pdf', { method: 'HEAD' });
         if (!check.ok) return [line('error: resume.pdf not found.', 'error')];
-        window.open('/resume.pdf', '_blank', 'noopener');
+        window.open('/Brianna_Workman-Resume.pdf', '_blank', 'noopener');
         return [line('opening resume.pdf...')];
       } catch {
         return [line('error: could not verify resume. try again.', 'error')];

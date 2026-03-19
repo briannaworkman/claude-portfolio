@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = getPost(slug);
   if (!post) return {};
-  return { title: `${post.title} — Brianna Workman` };
+  return { title: `${post.title} — Bri Workman` };
 }
 
 export default async function BlogPostPage({ params }: Props) {

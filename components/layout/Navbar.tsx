@@ -84,7 +84,7 @@ export function Navbar() {
           ))}
 
           <a
-            href="/resume.pdf"
+            href="/Brianna_Workman-Resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm text-text-muted hover:text-text-primary transition-colors"
@@ -163,7 +163,7 @@ export function Navbar() {
               </Link>
             ))}
             <a
-              href="/resume.pdf"
+              href="/Brianna_Workman-Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMenuOpen(false)}

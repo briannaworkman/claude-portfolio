@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { getAllPostMetas } from '@/lib/mdx';
 
 export const metadata: Metadata = {
-  title: 'Blog — Brianna Workman',
+  title: 'Blog — Bri Workman',
 };
 
 export default function BlogPage() {

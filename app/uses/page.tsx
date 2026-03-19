@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { usesCategories } from '@/data/uses';
 
 export const metadata: Metadata = {
-  title: 'Uses — Brianna Workman',
+  title: 'Uses — Bri Workman',
 };
 
 export default function UsesPage() {
