@@ -53,6 +53,8 @@ test.describe('Navigation', () => {
   test('claude portfolio project card has no live link', async ({ page }) => {
     await page.goto('/projects');
     const portfolioCard = page.locator('article').filter({ hasText: 'Claude Portfolio' });
-    await expect(portfolioCard.locator('a[aria-label="Claude Portfolio live site"]')).toHaveCount(0);
+    await expect(portfolioCard.locator('a[aria-label="Claude Portfolio live site"]')).toHaveCount(
+      0,
+    );
   });
 });
