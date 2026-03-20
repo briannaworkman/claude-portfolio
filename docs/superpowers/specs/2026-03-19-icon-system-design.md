@@ -32,7 +32,7 @@ Each icon component:
 - Renders a single `<svg>` with `aria-hidden="true"` (link text provides the accessible label)
 - Uses `currentColor` for fill/stroke so it inherits text color naturally
 
-**GitHubIcon SVG:** The user will supply the SVG path data before implementation begins. The component should use `viewBox="0 0 24 24"` (standard GitHub mark dimensions) and render a single `<path>` with `fill="currentColor"`.
+**GitHubIcon SVG:** User-supplied Font Awesome Free v7 GitHub mark. Uses `viewBox="0 0 640 640"` with a single `<path>` and `fill="currentColor"`. Width/height are set explicitly via the `size` prop so the non-standard coordinate space renders correctly at any size.
 
 ## Usage in ProjectCard
 
