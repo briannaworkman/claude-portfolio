@@ -63,4 +63,10 @@ test.describe('Navigation', () => {
       0,
     );
   });
+
+  test('contact page github link renders an svg icon', async ({ page }) => {
+    await page.goto('/contact');
+    const githubLink = page.locator('a[href*="github.com"]');
+    await expect(githubLink.locator('svg')).toBeVisible();
+  });
 });
