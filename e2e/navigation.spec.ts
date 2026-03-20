@@ -50,6 +50,12 @@ test.describe('Navigation', () => {
     await expect(resumeLink).toBeVisible();
   });
 
+  test('github links render an svg icon', async ({ page }) => {
+    await page.goto('/projects');
+    const githubLink = page.locator('a[aria-label*="on GitHub"]').first();
+    await expect(githubLink.locator('svg')).toBeVisible();
+  });
+
   test('claude portfolio project card has no live link', async ({ page }) => {
     await page.goto('/projects');
     const portfolioCard = page.locator('article').filter({ hasText: 'Claude Portfolio' });

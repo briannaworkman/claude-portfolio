@@ -1,3 +1,5 @@
+import { ExternalLinkIcon } from '@/components/icons/ExternalLinkIcon';
+import { GitHubIcon } from '@/components/icons/GitHubIcon';
 import { ClaudeTagBadge } from '@/components/web/ClaudeTagBadge';
 import type { Project } from '@/data/projects';
 
@@ -19,9 +21,10 @@ export function ProjectCard({ project }: Props) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${project.title} on GitHub`}
-              className="text-xs hover:text-text-primary transition-colors"
+              className="flex items-center gap-1 text-xs hover:text-text-primary transition-colors"
             >
-              GitHub ↗
+              <GitHubIcon size={14} />
+              GitHub
             </a>
           )}
           {project.url && (
@@ -30,9 +33,10 @@ export function ProjectCard({ project }: Props) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${project.title} live site`}
-              className="text-xs hover:text-text-primary transition-colors"
+              className="flex items-center gap-1 text-xs hover:text-text-primary transition-colors"
             >
-              Live ↗
+              <ExternalLinkIcon size={14} />
+              Live
             </a>
           )}
         </div>
