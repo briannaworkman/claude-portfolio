@@ -50,11 +50,23 @@ test.describe('Navigation', () => {
     await expect(resumeLink).toBeVisible();
   });
 
+  test('github links render an svg icon', async ({ page }) => {
+    await page.goto('/projects');
+    const githubLink = page.locator('a[aria-label*="on GitHub"]').first();
+    await expect(githubLink.locator('svg')).toBeVisible();
+  });
+
   test('claude portfolio project card has no live link', async ({ page }) => {
     await page.goto('/projects');
     const portfolioCard = page.locator('article').filter({ hasText: 'Claude Portfolio' });
     await expect(portfolioCard.locator('a[aria-label="Claude Portfolio live site"]')).toHaveCount(
       0,
     );
+  });
+
+  test('contact page github link renders an svg icon', async ({ page }) => {
+    await page.goto('/contact');
+    const githubLink = page.locator('a[href*="github.com"]');
+    await expect(githubLink.locator('svg')).toBeVisible();
   });
 });

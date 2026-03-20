@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import { GitHubIcon } from '@/components/icons/GitHubIcon';
+import { LinkedInIcon } from '@/components/icons/LinkedInIcon';
 import { ContactForm } from '@/components/web/ContactForm';
 import { social } from '@/data/social';
 
@@ -26,9 +28,10 @@ export default function ContactPage() {
                   href={social.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-text-muted hover:text-text-primary transition-colors"
+                  className="flex items-center gap-1 text-text-muted hover:text-text-primary transition-colors"
                 >
-                  GitHub ↗
+                  <GitHubIcon size={14} />
+                  GitHub
                 </a>
               </li>
             )}
@@ -38,9 +41,10 @@ export default function ContactPage() {
                   href={social.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-text-muted hover:text-text-primary transition-colors"
+                  className="flex items-center gap-1 text-text-muted hover:text-text-primary transition-colors"
                 >
-                  LinkedIn ↗
+                  <LinkedInIcon size={14} />
+                  LinkedIn
                 </a>
               </li>
             )}
