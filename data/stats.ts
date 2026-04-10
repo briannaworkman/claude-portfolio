@@ -46,13 +46,7 @@ export type MonthData = {
   implemented: ImplementedItem[];
 };
 
-export type AssessmentStrength = {
-  label: string;
-  tag: string;
-  detail: string;
-};
-
-export type AssessmentRoughEdge = {
+export type AssessmentItem = {
   label: string;
   tag: string;
   detail: string;
@@ -60,8 +54,8 @@ export type AssessmentRoughEdge = {
 
 export type Assessment = {
   summary: string;
-  strengths: AssessmentStrength[];
-  roughEdges: AssessmentRoughEdge[];
+  strengths: AssessmentItem[];
+  roughEdges: AssessmentItem[];
 };
 
 export const ASSESSMENT: Assessment = {
@@ -148,21 +142,21 @@ export const STATS_DATA: MonthData[] = [
     ],
     horizon: [
       {
-        id: 'h1',
+        id: '2026-02-h1',
         title: 'CLAUDE.md Convention Docs',
         effort: 'low',
         description:
           'Document enum patterns, string placeholders, and branch naming in CLAUDE.md so Claude stops guessing at codebase conventions.',
       },
       {
-        id: 'h2',
+        id: '2026-02-h2',
         title: 'Branch State at Session Start',
         effort: 'low',
         description:
           'Explicitly declare the target branch at the start of every commit-related session to eliminate wrong-branch errors.',
       },
       {
-        id: 'h3',
+        id: '2026-02-h3',
         title: 'Design Token Grounding',
         effort: 'low',
         description:
@@ -197,14 +191,14 @@ export const STATS_DATA: MonthData[] = [
     ],
     horizon: [
       {
-        id: 'h1',
+        id: '2026-03-h1',
         title: 'Sub-Agent Task Orchestration',
         effort: 'medium',
         description:
           'Leverage TaskCreate to parallelize independent subtasks like component implementations and production investigations.',
       },
       {
-        id: 'h2',
+        id: '2026-03-h2',
         title: 'GitHub MCP Server',
         effort: 'low',
         description:
@@ -259,28 +253,28 @@ export const STATS_DATA: MonthData[] = [
     ],
     horizon: [
       {
-        id: 'h1',
+        id: '2026-04-h1',
         title: 'Autonomous TDD Pipelines',
         effort: 'high',
         description:
           'Kick off a feature ticket and have Claude autonomously write failing tests, implement, iterate to green, lint, and open a draft PR without manual shepherding.',
       },
       {
-        id: 'h2',
+        id: '2026-04-h2',
         title: 'Parallel Multi-Repo Agents',
         effort: 'high',
         description:
           'Two sub-agents per worktree coordinating from a shared spec, producing aligned BFF + frontend PRs simultaneously instead of sequential branch-switching.',
       },
       {
-        id: 'h3',
+        id: '2026-04-h3',
         title: 'Self-Healing PR Review Loops',
         effort: 'medium',
         description:
           'Claude fetches PR review comments via GitHub CLI, categorizes them, applies fixes, verifies tests pass, and pushes — turning a 30-min feedback cycle into 2 minutes.',
       },
       {
-        id: 'h4',
+        id: '2026-04-h4',
         title: 'GitHub MCP Server',
         effort: 'low',
         description:
