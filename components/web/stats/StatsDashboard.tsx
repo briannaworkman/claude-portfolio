@@ -67,10 +67,14 @@ function fmt(n: number | string): string {
 
 type DeltaResult = { display: string; color: string };
 
+type NumericMetricKey = {
+  [K in keyof MonthMetrics]: MonthMetrics[K] extends number ? K : never;
+}[keyof MonthMetrics];
+
 function getDelta(
   current: MonthData,
   prev: MonthData | null,
-  key: keyof MonthMetrics,
+  key: NumericMetricKey,
   invertGood = false,
 ): DeltaResult | null {
   if (!prev) return null;
@@ -86,7 +90,7 @@ function getDelta(
 function getDeltaPct(
   current: MonthData,
   prev: MonthData | null,
-  key: keyof MonthMetrics,
+  key: NumericMetricKey,
   invertGood = false,
 ): DeltaResult | null {
   if (!prev) return null;
@@ -217,13 +221,13 @@ function TrendChart({
 }: {
   title: string;
   height?: number;
-  children: React.ReactNode;
+  children: React.ReactElement;
 }) {
   return (
     <div className="border border-white/8 bg-white/3 rounded p-5">
       <div className="text-xs font-mono text-white/35 uppercase tracking-widest mb-4">{title}</div>
       <ResponsiveContainer width="100%" height={height}>
-        {children as React.ReactElement}
+        {children}
       </ResponsiveContainer>
     </div>
   );
@@ -239,7 +243,7 @@ function ChartTooltip({ active, payload, label }: TooltipContentProps<ValueType,
           <span style={{ color: p.color }}>▸</span>
           <span className="text-white/60">{p.name}:</span>
           <span style={{ color: p.color }} className="font-semibold">
-            {fmt(p.value as number)}
+            {p.value != null ? fmt(Number(p.value)) : null}
           </span>
         </div>
       ))}
@@ -712,7 +716,7 @@ export function StatsDashboard() {
               </p>
             ) : (
               current.implemented.map((item) => (
-                <ImplementedCard key={item.title} item={item} />
+                <ImplementedCard key={`${item.title}-${item.fromMonth}`} item={item} />
               ))
             )}
           </div>
