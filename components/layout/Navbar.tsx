@@ -7,6 +7,7 @@ import { useMode } from '@/context/ModeContext';
 const NAV_LINKS = [
   { href: '/projects', label: 'Projects' },
   { href: '/blog', label: 'Blog' },
+  { href: '/stats', label: 'Stats' },
   { href: '/uses', label: 'Uses' },
   { href: '/contact', label: 'Contact' },
 ];
