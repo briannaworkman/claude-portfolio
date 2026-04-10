@@ -70,3 +70,40 @@ test.describe('Navigation', () => {
     await expect(githubLink.locator('svg')).toBeVisible();
   });
 });
+
+test.describe('Stats page', () => {
+  test('stats page renders with heading', async ({ page }) => {
+    await page.goto('/stats');
+    await expect(page.locator('h1')).toContainText('DEV_METRICS');
+  });
+
+  test('stats page has correct title', async ({ page }) => {
+    await page.goto('/stats');
+    await expect(page).toHaveTitle(/Bri Workman/);
+  });
+
+  test('Stats link appears in navbar', async ({ page }) => {
+    await page.goto('/');
+    await expect(page.locator('nav a[href="/stats"]')).toBeVisible();
+  });
+
+  test('stats tabs are all present', async ({ page }) => {
+    await page.goto('/stats');
+    for (const label of ['metrics', 'trends', 'assessment']) {
+      await expect(page.locator(`button:has-text("${label}")`).first()).toBeVisible();
+    }
+  });
+
+  test('clicking trends tab shows charts', async ({ page }) => {
+    await page.goto('/stats');
+    await page.locator('button:has-text("trends")').click();
+    await expect(page.locator('.recharts-responsive-container').first()).toBeVisible();
+  });
+
+  test('month selector buttons switch active month', async ({ page }) => {
+    await page.goto('/stats');
+    const firstMonthBtn = page.locator('button:has-text("2026-02")');
+    await firstMonthBtn.click();
+    await expect(firstMonthBtn).toHaveClass(/text-\[#00ff9d\]/);
+  });
+});
