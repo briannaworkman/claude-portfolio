@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { getAllPostMetas } from '@/lib/mdx';
 import { PageHeader } from '@/components/web/PageHeader';
+import { getAllPostMetas } from '@/lib/mdx';
 
 export const metadata: Metadata = {
   title: 'Blog — Bri Workman',

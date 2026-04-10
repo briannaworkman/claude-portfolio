@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import { GitHubIcon } from '@/components/icons/GitHubIcon';
 import { LinkedInIcon } from '@/components/icons/LinkedInIcon';
 import { ContactForm } from '@/components/web/ContactForm';
-import { social } from '@/data/social';
 import { PageHeader } from '@/components/web/PageHeader';
+import { social } from '@/data/social';
 
 export const metadata: Metadata = {
   title: 'Contact — Bri Workman',
@@ -12,7 +12,10 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <div className="max-w-3xl mx-auto px-6 py-16">
-      <PageHeader title="CONTACT" subtitle="Say hi — I'm always happy to chat about projects, AI workflows, or engineering." />
+      <PageHeader
+        title="CONTACT"
+        subtitle="Say hi — I'm always happy to chat about projects, AI workflows, or engineering."
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
         <ContactForm />

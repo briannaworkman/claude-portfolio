@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import { usesCategories } from '@/data/uses';
 import { PageHeader } from '@/components/web/PageHeader';
+import { usesCategories } from '@/data/uses';
 
 export const metadata: Metadata = {
   title: 'Uses — Bri Workman',

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { ProjectCard } from '@/components/web/ProjectCard';
-import { projects } from '@/data/projects';
 import { PageHeader } from '@/components/web/PageHeader';
+import { projects } from '@/data/projects';
 
 export const metadata: Metadata = {
   title: 'Projects — Bri Workman',
