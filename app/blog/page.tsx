@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getAllPostMetas } from '@/lib/mdx';
+import { PageHeader } from '@/components/web/PageHeader';
 
 export const metadata: Metadata = {
   title: 'Blog — Bri Workman',
@@ -11,8 +12,7 @@ export default function BlogPage() {
 
   return (
     <div className="max-w-3xl mx-auto px-6 py-16">
-      <h1 className="text-4xl font-bold mb-3">Blog</h1>
-      <p className="text-text-muted mb-10">Thoughts on AI, engineering, and workflow.</p>
+      <PageHeader title="BLOG" subtitle="Thoughts on AI, engineering, and workflow." />
 
       {posts.length === 0 ? (
         <p className="text-text-muted font-mono">nothing here yet, check back soon.</p>
