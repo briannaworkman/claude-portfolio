@@ -74,7 +74,7 @@ test.describe('Navigation', () => {
 test.describe('Stats page', () => {
   test('stats page renders with heading', async ({ page }) => {
     await page.goto('/stats');
-    await expect(page.locator('h1')).toContainText('DEV_METRICS');
+    await expect(page.locator('h1')).toContainText('STATS');
   });
 
   test('stats page has correct title', async ({ page }) => {

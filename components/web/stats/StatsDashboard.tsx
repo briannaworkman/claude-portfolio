@@ -323,7 +323,7 @@ export function StatsDashboard() {
         {/* ── HEADER ── */}
         <div className="mb-10 stats-fade-up flex items-start justify-between gap-4 flex-wrap">
           <PageHeader
-            title="DEV_METRICS"
+            title="STATS"
             subtitle="rolling claude code insights · updated monthly"
             className=""
           />
