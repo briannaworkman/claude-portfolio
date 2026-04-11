@@ -35,7 +35,7 @@ jobs:
           NEXT_PUBLIC_FORMSPREE_ENDPOINT: https://formspree.io/f/test
 
       - name: Install Playwright browsers
-        run: pnpm dlx playwright install --with-deps chromium
+        run: pnpm exec playwright install --with-deps chromium
 
       - name: E2E tests (includes build via webServer config)
         run: pnpm test:e2e

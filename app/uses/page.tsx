@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { PageHeader } from '@/components/web/PageHeader';
 import { usesCategories } from '@/data/uses';
 
 export const metadata: Metadata = {
@@ -8,10 +9,7 @@ export const metadata: Metadata = {
 export default function UsesPage() {
   return (
     <div className="max-w-3xl mx-auto px-6 py-16">
-      <h1 className="text-4xl font-bold mb-3">Uses</h1>
-      <p className="text-text-muted mb-10">
-        My setup, tools, and the stack I reach for by default.
-      </p>
+      <PageHeader title="USES" subtitle="My setup, tools, and the stack I reach for by default." />
 
       <div className="space-y-10">
         {usesCategories.map((category) => (

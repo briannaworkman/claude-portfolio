@@ -9,22 +9,22 @@ test.describe('Navigation', () => {
 
   test('projects page renders', async ({ page }) => {
     await page.goto('/projects');
-    await expect(page.locator('h1')).toContainText('Projects');
+    await expect(page.locator('h1')).toContainText('PROJECTS');
   });
 
   test('blog page renders with empty state or posts', async ({ page }) => {
     await page.goto('/blog');
-    await expect(page.locator('h1')).toContainText('Blog');
+    await expect(page.locator('h1')).toContainText('BLOG');
   });
 
   test('uses page renders', async ({ page }) => {
     await page.goto('/uses');
-    await expect(page.locator('h1')).toContainText('Uses');
+    await expect(page.locator('h1')).toContainText('USES');
   });
 
   test('contact page renders', async ({ page }) => {
     await page.goto('/contact');
-    await expect(page.locator('h1')).toContainText('Contact');
+    await expect(page.locator('h1')).toContainText('CONTACT');
   });
 
   test('page titles use Bri Workman branding', async ({ page }) => {

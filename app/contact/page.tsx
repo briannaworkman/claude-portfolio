@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { GitHubIcon } from '@/components/icons/GitHubIcon';
 import { LinkedInIcon } from '@/components/icons/LinkedInIcon';
 import { ContactForm } from '@/components/web/ContactForm';
+import { PageHeader } from '@/components/web/PageHeader';
 import { social } from '@/data/social';
 
 export const metadata: Metadata = {
@@ -11,10 +12,10 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <div className="max-w-3xl mx-auto px-6 py-16">
-      <h1 className="text-4xl font-bold mb-3">Contact</h1>
-      <p className="text-text-muted mb-10">
-        Say hi — I'm always happy to chat about projects, AI workflows, or engineering.
-      </p>
+      <PageHeader
+        title="CONTACT"
+        subtitle="Say hi — I'm always happy to chat about projects, AI workflows, or engineering."
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
         <ContactForm />
