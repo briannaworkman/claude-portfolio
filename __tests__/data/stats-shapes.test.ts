@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { STATS_DATA, ASSESSMENT } from '@/data/stats';
+import { ASSESSMENT, STATS_DATA } from '@/data/stats';
 
 describe('data/stats — STATS_DATA', () => {
   it('has at least one entry', () => {
@@ -33,8 +33,13 @@ describe('data/stats — STATS_DATA', () => {
 
   it('all numeric metrics are positive', () => {
     const positiveKeys = [
-      'messages', 'sessions', 'files', 'linesAdded',
-      'commits', 'agentCalls', 'taskCreates',
+      'messages',
+      'sessions',
+      'files',
+      'linesAdded',
+      'commits',
+      'agentCalls',
+      'taskCreates',
     ] as const;
     for (const d of STATS_DATA) {
       for (const key of positiveKeys) {

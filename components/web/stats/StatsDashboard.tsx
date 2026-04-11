@@ -1,48 +1,48 @@
 'use client';
 
 import { useState } from 'react';
-import { PageHeader } from '@/components/web/PageHeader';
 import {
-  BarChart,
   Bar,
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
+  BarChart,
   CartesianGrid,
   Legend,
+  Line,
+  LineChart,
   ReferenceLine,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
 } from 'recharts';
-import type { TooltipContentProps } from 'recharts/types/component/Tooltip';
 import type { NameType, Payload, ValueType } from 'recharts/types/component/DefaultTooltipContent';
+import type { TooltipContentProps } from 'recharts/types/component/Tooltip';
+import { PageHeader } from '@/components/web/PageHeader';
 import {
-  STATS_DATA,
   ASSESSMENT,
-  type MonthData,
-  type MonthMetrics,
   type HorizonItem,
   type ImplementedItem,
+  type MonthData,
+  type MonthMetrics,
+  STATS_DATA,
 } from '@/data/stats';
 
 // ─── CONSTANTS ────────────────────────────────────────────────────────────────
 const GREEN = '#00ff9d';
 
 const EFFORT_COLORS = {
-  low:    { bg: 'bg-emerald-900/40', border: 'border-emerald-500/40', text: 'text-emerald-400' },
-  medium: { bg: 'bg-amber-900/40',   border: 'border-amber-500/40',   text: 'text-amber-400'   },
-  high:   { bg: 'bg-rose-900/40',    border: 'border-rose-500/40',    text: 'text-rose-400'    },
+  low: { bg: 'bg-emerald-900/40', border: 'border-emerald-500/40', text: 'text-emerald-400' },
+  medium: { bg: 'bg-amber-900/40', border: 'border-amber-500/40', text: 'text-amber-400' },
+  high: { bg: 'bg-rose-900/40', border: 'border-rose-500/40', text: 'text-rose-400' },
 } as const;
 
 const AXIS_STYLE = { fontFamily: 'monospace', fontSize: 10, fill: '#ffffff30' };
 const GRID_STYLE = { stroke: '#ffffff08', strokeDasharray: '3 3' };
 
 const TAB_LABELS: Record<string, string> = {
-  metrics:     'metrics',
-  trends:      'trends',
-  assessment:  'assessment',
-  horizon:     'on the horizon',
+  metrics: 'metrics',
+  trends: 'trends',
+  assessment: 'assessment',
+  horizon: 'on the horizon',
   implemented: 'implemented',
 };
 
@@ -50,15 +50,15 @@ const TABS = ['metrics', 'trends', 'assessment', 'horizon', 'implemented'];
 
 // ─── TREND DATA (derived once at module level) ────────────────────────────────
 const trendData = STATS_DATA.map((d) => ({
-  label:            d.slug,
-  messages:         d.metrics.messages,
-  commits:          d.metrics.commits,
-  goalRate:         d.metrics.goalRate,
-  agentCalls:       d.metrics.agentCalls,
-  msgsPerDay:       d.metrics.msgsPerDay,
-  linesAdded:       d.metrics.linesAdded,
+  label: d.slug,
+  messages: d.metrics.messages,
+  commits: d.metrics.commits,
+  goalRate: d.metrics.goalRate,
+  agentCalls: d.metrics.agentCalls,
+  msgsPerDay: d.metrics.msgsPerDay,
+  linesAdded: d.metrics.linesAdded,
   multiClaudingPct: d.metrics.multiClaudingPct,
-  frictionScore:    d.metrics.frictionScore,
+  frictionScore: d.metrics.frictionScore,
 }));
 
 // ─── HELPERS ──────────────────────────────────────────────────────────────────
@@ -299,11 +299,11 @@ export function StatsDashboard() {
   const m = current.metrics;
   const maxBreakdown = Math.max(...current.workBreakdown.map((w) => w.sessions));
 
-  const dGoalRate   = getDeltaPct(current, prev, 'goalRate');
-  const dMessages   = getDelta(current, prev, 'messages');
-  const dCommits    = getDelta(current, prev, 'commits');
+  const dGoalRate = getDeltaPct(current, prev, 'goalRate');
+  const dMessages = getDelta(current, prev, 'messages');
+  const dCommits = getDelta(current, prev, 'commits');
   const dAgentCalls = getDelta(current, prev, 'agentCalls');
-  const dFriction   = getDeltaPct(current, prev, 'frictionScore', true);
+  const dFriction = getDeltaPct(current, prev, 'frictionScore', true);
 
   return (
     <div className="relative overflow-x-hidden">
@@ -319,7 +319,6 @@ export function StatsDashboard() {
       />
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 py-12">
-
         {/* ── HEADER ── */}
         <div className="mb-10 stats-fade-up flex items-start justify-between gap-4 flex-wrap">
           <PageHeader
@@ -356,7 +355,10 @@ export function StatsDashboard() {
                 Goal Rate
               </div>
               {dGoalRate && (
-                <span className="text-xs font-mono font-semibold" style={{ color: dGoalRate.color }}>
+                <span
+                  className="text-xs font-mono font-semibold"
+                  style={{ color: dGoalRate.color }}
+                >
                   {dGoalRate.display}
                 </span>
               )}
@@ -365,9 +367,7 @@ export function StatsDashboard() {
               {m.goalRate}
               <span className="text-xl">%</span>
             </div>
-            <div className="text-xs font-mono text-white/30 mt-1">
-              across {m.sessions} sessions
-            </div>
+            <div className="text-xs font-mono text-white/30 mt-1">across {m.sessions} sessions</div>
           </div>
 
           <StatCard
@@ -513,9 +513,7 @@ export function StatsDashboard() {
             <p className="text-xs font-mono text-white/35 leading-relaxed">
               Month-over-month velocity across all tracked periods.
               {STATS_DATA.length < 4 && (
-                <span className="text-amber-400/60">
-                  {' '}Charts fill in as months accumulate.
-                </span>
+                <span className="text-amber-400/60"> Charts fill in as months accumulate.</span>
               )}
             </p>
 
@@ -526,7 +524,9 @@ export function StatsDashboard() {
                 <YAxis yAxisId="left" tick={AXIS_STYLE} domain={[80, 100]} unit="%" />
                 <YAxis yAxisId="right" orientation="right" tick={AXIS_STYLE} />
                 <Tooltip content={(p) => <ChartTooltip {...p} />} />
-                <Legend wrapperStyle={{ fontFamily: 'monospace', fontSize: 11, color: '#ffffff45' }} />
+                <Legend
+                  wrapperStyle={{ fontFamily: 'monospace', fontSize: 11, color: '#ffffff45' }}
+                />
                 <ReferenceLine yAxisId="left" y={90} stroke="#ffffff08" strokeDasharray="4 4" />
                 <Line
                   yAxisId="left"
@@ -557,7 +557,9 @@ export function StatsDashboard() {
                 <XAxis dataKey="label" tick={AXIS_STYLE} />
                 <YAxis tick={AXIS_STYLE} />
                 <Tooltip content={(p) => <ChartTooltip {...p} />} />
-                <Legend wrapperStyle={{ fontFamily: 'monospace', fontSize: 11, color: '#ffffff45' }} />
+                <Legend
+                  wrapperStyle={{ fontFamily: 'monospace', fontSize: 11, color: '#ffffff45' }}
+                />
                 <Line
                   type="monotone"
                   dataKey="messages"
@@ -585,7 +587,9 @@ export function StatsDashboard() {
                 <XAxis dataKey="label" tick={AXIS_STYLE} />
                 <YAxis tick={AXIS_STYLE} />
                 <Tooltip content={(p) => <ChartTooltip {...p} />} />
-                <Legend wrapperStyle={{ fontFamily: 'monospace', fontSize: 11, color: '#ffffff45' }} />
+                <Legend
+                  wrapperStyle={{ fontFamily: 'monospace', fontSize: 11, color: '#ffffff45' }}
+                />
                 <Bar
                   dataKey="agentCalls"
                   name="agent calls"

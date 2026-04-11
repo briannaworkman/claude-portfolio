@@ -134,11 +134,11 @@ export const STATS_DATA: MonthData[] = [
       frictionScore: 3,
     },
     workBreakdown: [
-      { label: 'Frontend Dev',     sessions: 20, color: '#00ff9d' },
-      { label: 'PR Review',        sessions: 14, color: '#7c3aed' },
-      { label: 'Git / Branches',   sessions: 10, color: '#3b82f6' },
-      { label: 'Docs / Knowledge', sessions: 6,  color: '#f59e0b' },
-      { label: 'DevOps / Prod',    sessions: 5,  color: '#f43f5e' },
+      { label: 'Frontend Dev', sessions: 20, color: '#00ff9d' },
+      { label: 'PR Review', sessions: 14, color: '#7c3aed' },
+      { label: 'Git / Branches', sessions: 10, color: '#3b82f6' },
+      { label: 'Docs / Knowledge', sessions: 6, color: '#f59e0b' },
+      { label: 'DevOps / Prod', sessions: 5, color: '#f43f5e' },
     ],
     horizon: [
       {
