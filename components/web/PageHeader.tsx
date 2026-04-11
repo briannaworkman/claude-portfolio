@@ -3,11 +3,12 @@
 interface PageHeaderProps {
   title: string;
   subtitle: string;
+  className?: string;
 }
 
-export function PageHeader({ title, subtitle }: PageHeaderProps) {
+export function PageHeader({ title, subtitle, className = 'mb-10' }: PageHeaderProps) {
   return (
-    <div className="mb-10">
+    <div className={className}>
       <style>{`
         @keyframes page-header-blink { 0%,100%{opacity:1} 50%{opacity:0} }
         .page-header-cursor { animation: page-header-blink 1.1s step-end infinite; }
