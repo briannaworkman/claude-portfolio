@@ -117,117 +117,6 @@ export const ASSESSMENT: Assessment = {
 
 export const STATS_DATA: MonthData[] = [
   {
-    month: 'Jan 9 – Feb 9',
-    slug: '2026-02',
-    metrics: {
-      messages: 842,
-      sessions: 67,
-      files: 218,
-      linesAdded: 14320,
-      linesRemoved: 1840,
-      commits: 138,
-      goalRate: 88,
-      agentCalls: 94,
-      taskCreates: 71,
-      multiClaudingPct: 4,
-      msgsPerDay: 35.1,
-      frictionScore: 8,
-    },
-    workBreakdown: [
-      { label: 'Frontend Dev',     sessions: 18, color: '#00ff9d' },
-      { label: 'PR Review',        sessions: 10, color: '#7c3aed' },
-      { label: 'Git / Branches',   sessions: 7,  color: '#3b82f6' },
-      { label: 'Docs / Knowledge', sessions: 4,  color: '#f59e0b' },
-      { label: 'DevOps / Prod',    sessions: 3,  color: '#f43f5e' },
-    ],
-    horizon: [
-      {
-        id: '2026-02-h1',
-        title: 'CLAUDE.md Convention Docs',
-        effort: 'low',
-        description:
-          'Document enum patterns, string placeholders, and branch naming in CLAUDE.md so Claude stops guessing at codebase conventions.',
-      },
-      {
-        id: '2026-02-h2',
-        title: 'Branch State at Session Start',
-        effort: 'low',
-        description:
-          'Explicitly declare the target branch at the start of every commit-related session to eliminate wrong-branch errors.',
-      },
-      {
-        id: '2026-02-h3',
-        title: 'Design Token Grounding',
-        effort: 'low',
-        description:
-          'Have Claude read the theme file and enumerate available tokens before any UI work begins.',
-      },
-    ],
-    implemented: [],
-  },
-  {
-    month: 'Feb 9 – Mar 9',
-    slug: '2026-03',
-    metrics: {
-      messages: 1104,
-      sessions: 88,
-      files: 341,
-      linesAdded: 22100,
-      linesRemoved: 2310,
-      commits: 187,
-      goalRate: 92,
-      agentCalls: 178,
-      taskCreates: 129,
-      multiClaudingPct: 7,
-      msgsPerDay: 46.8,
-      frictionScore: 5,
-    },
-    workBreakdown: [
-      { label: 'Frontend Dev',     sessions: 22, color: '#00ff9d' },
-      { label: 'PR Review',        sessions: 12, color: '#7c3aed' },
-      { label: 'Git / Branches',   sessions: 9,  color: '#3b82f6' },
-      { label: 'Docs / Knowledge', sessions: 5,  color: '#f59e0b' },
-      { label: 'DevOps / Prod',    sessions: 4,  color: '#f43f5e' },
-    ],
-    horizon: [
-      {
-        id: '2026-03-h1',
-        title: 'Sub-Agent Task Orchestration',
-        effort: 'medium',
-        description:
-          'Leverage TaskCreate to parallelize independent subtasks like component implementations and production investigations.',
-      },
-      {
-        id: '2026-03-h2',
-        title: 'GitHub MCP Server',
-        effort: 'low',
-        description:
-          'Connect Claude Code to GitHub natively so it can read PR diffs and comments without manual copy-paste.',
-      },
-    ],
-    implemented: [
-      {
-        title: 'CLAUDE.md Convention Docs',
-        fromMonth: 'Jan 9 – Feb 9',
-        description: 'Documented enum patterns, string placeholder format, and branch naming conventions.',
-        outcome:
-          'Wrong-pattern reverts dropped significantly. Claude now picks up isValidEnumValue middleware and {0} placeholders consistently.',
-      },
-      {
-        title: 'Branch State at Session Start',
-        fromMonth: 'Jan 9 – Feb 9',
-        description: 'Added explicit branch declaration as a session-opening habit for all commit-related work.',
-        outcome: 'Wrong-branch commits went from ~3/month to near zero.',
-      },
-      {
-        title: 'Design Token Grounding',
-        fromMonth: 'Jan 9 – Feb 9',
-        description: 'Now point Claude at the theme file before any styling work begins.',
-        outcome: 'UI iteration cycles dropped from 3+ rounds to 1–2 on average.',
-      },
-    ],
-  },
-  {
     month: 'Mar 9 – Apr 9',
     slug: '2026-04',
     metrics: {
@@ -281,15 +170,6 @@ export const STATS_DATA: MonthData[] = [
           'Connect Claude Code to GitHub natively so it can read PR diffs and comments without manual copy-paste.',
       },
     ],
-    implemented: [
-      {
-        title: 'Sub-Agent Task Orchestration',
-        fromMonth: 'Feb 9 – Mar 9',
-        description:
-          'Now actively using TaskCreate to parallelize independent subtasks — Banner variants, production investigations, multi-file changes.',
-        outcome:
-          '257 Agent calls and 176 TaskCreate invocations this month. Operating more like a tech lead than a solo coder.',
-      },
-    ],
+    implemented: [],
   },
 ];
