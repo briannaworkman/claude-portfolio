@@ -6,6 +6,8 @@ import { social } from '@/data/social';
 import { usesCategories } from '@/data/uses';
 import type { PostMeta } from '@/lib/mdx';
 import { parseCommand } from '@/lib/terminal/parser';
+import { STATS_DATA } from '@/data/stats';
+import { formatStats } from '@/lib/terminal/stats-formatter';
 
 type StreamCallback = (chunk: string) => void;
 
@@ -40,6 +42,7 @@ Available commands:
   resume          Download my resume
   education       Academic background
   interests       What I geek out on
+  stats [month]   Claude Code usage metrics (e.g. stats 2026-04)
   ask <question>  Ask me anything (Claude-powered)
   clear           Clear the terminal
 
@@ -211,6 +214,24 @@ export async function runCommand(input: string, onStream: StreamCallback): Promi
 
     case 'interests':
       return [line(about.interests.join(', '))];
+
+    case 'stats': {
+      const slug = args[0];
+      if (slug) {
+        const month = STATS_DATA.find((d) => d.slug === slug);
+        if (!month) {
+          const available = STATS_DATA.map((d) => d.slug).join(', ');
+          return [
+            line(
+              `error: month '${slug}' not found. available months: ${available}`,
+              'error',
+            ),
+          ];
+        }
+        return formatStats(month);
+      }
+      return formatStats(STATS_DATA[STATS_DATA.length - 1]);
+    }
 
     case 'ask':
       return handleAsk(args[0] ?? '', onStream);
