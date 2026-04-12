@@ -18,6 +18,7 @@ const BASE_COMMANDS = [
   'resume',
   'education',
   'interests',
+  'stats',
   'clear',
 ];
 
