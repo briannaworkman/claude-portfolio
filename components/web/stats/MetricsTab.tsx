@@ -116,7 +116,7 @@ export function MetricsTab({
             />
           ))}
         </div>
-        <div className="text-xs font-mono text-white/20 mt-3">sessions per area</div>
+        <div className="text-xs font-mono text-white/20 mt-3">% of tracked sessions</div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
