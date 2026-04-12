@@ -84,7 +84,7 @@ test.describe('Stats page', () => {
 
   test('Stats link appears in navbar', async ({ page }) => {
     await page.goto('/');
-    await expect(page.locator('nav a[href="/stats"]')).toBeVisible();
+    await expect(page.locator('nav a[href="/stats"]').first()).toBeVisible();
   });
 
   test('all five tabs are present', async ({ page }) => {
