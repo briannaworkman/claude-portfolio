@@ -1,4 +1,4 @@
-# ✨ brianna.dev — Personal Portfolio
+# ✨ briworkman.dev — Personal Portfolio
 
 [![CI](https://github.com/briannaworkman/claude-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/briannaworkman/claude-portfolio/actions/workflows/ci.yml)
 [![Powered by Claude](https://img.shields.io/badge/Powered_by-Claude_Sonnet-a78bfa?logo=anthropic&logoColor=white)](https://anthropic.com)
@@ -17,6 +17,7 @@ A clean, expressive portfolio with all the classics:
 - 🏠 **Landing page** — hero, skills, featured projects
 - 🔨 **Projects** — everything I've built, with Claude badges for AI-powered work
 - ✍️ **Blog** — thoughts on AI, engineering, and workflow (MDX-powered)
+- 📊 **Stats** — Claude Code usage insights dashboard (sessions, tokens, work breakdown)
 - 🛠️ **Uses** — my setup, tools, and go-to stack
 - 📬 **Contact** — a real working form (Formspree)
 - 📄 **Resume** — always one click away
@@ -30,6 +31,8 @@ Press **`> terminal`** in the navbar (or `Ctrl+\``) to drop into a full interact
 > ls projects
 > cat claude-portfolio
 > ask what do you work on?
+> stats
+> stats 2026-04
 > open github
 ```
 
@@ -104,7 +107,10 @@ claude-portfolio/
 │   ├── blog/             # ✍️ Blog list + MDX post pages
 │   ├── contact/          # 📬 Contact page
 │   ├── projects/         # 🔨 Projects page
-│   └── uses/             # 🛠️ Uses page
+│   ├── stats/            # 📊 Claude Code insights dashboard
+│   ├── uses/             # 🛠️ Uses page
+│   ├── robots.ts         # 🤖 Crawler rules
+│   └── sitemap.ts        # 🗺️ Auto-generated sitemap
 ├── components/
 │   ├── layout/           # 🧭 Navbar, Footer
 │   ├── terminal/         # 💻 Terminal overlay, input, output
@@ -158,7 +164,7 @@ pnpm test --run
 pnpm test:e2e
 ```
 
-29 unit tests + 14 E2E tests. All green. ✅
+73 unit tests + 31 E2E tests. All green. ✅
 
 ---
 
