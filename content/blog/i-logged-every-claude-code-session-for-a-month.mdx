@@ -1,0 +1,131 @@
+---
+title: "I Logged Every Claude Code Session for a Month. Here's What the Data Actually Showed."
+date: 2026-04-12
+description: 1,328 messages, 101 sessions, and a few uncomfortable truths about how I work.
+---
+
+I've been using Claude Code every day for a while now. Not casually. It's open before my morning coffee and it's the last thing I close before I log off. I've written about it, built on top of it, and generally positioned myself as someone who knows how this tool works.
+
+So when I pulled my insights report last week (a full breakdown of every session I'd run over the past month) I expected to feel validated. Here are my numbers, here's my workflow, here's proof I'm using this well.
+
+Instead, I found something more interesting: the data told me things about *how I work* that I hadn't consciously registered. Some of it was flattering. Some of it was a little uncomfortable. All of it was useful.
+
+Here's what a month of serious Claude Code usage actually looks like.
+
+---
+
+## The Raw Numbers
+
+Let's start with scale, because context matters.
+
+Over 24 working days, I ran **101 sessions** and sent **1,328 messages**, about 55 messages per day. Those sessions touched **420 files**, produced **+28,997 lines of code** (with 2,922 deleted, which is a healthy ratio), and resulted in **224 commits shipped**.
+
+My **goal achievement rate across those sessions was 96%**. That number surprised me more than any other. I go into sessions expecting a lot from Claude Code, and apparently it delivers almost all of it.
+
+What I worked on broke down roughly like this:
+
+- **~20 sessions** on frontend feature development: registration status dropdowns, empty state components, Banner variants, toast notifications, all driven through TDD
+- **~14 sessions** addressing PR review feedback: type casting cleanup, lint fixes, ARIA improvements, merge conflict resolution
+- **~10 sessions** on git operations and branch management: worktrees, rebasing, stacked branches, cherry-pick rebases
+- **~6 sessions** on documentation and knowledge systems, including an Obsidian knowledge synthesis setup
+- **~5 sessions** on DevOps and production support: pipeline failures, database migrations, NestJS debugging
+
+Standard developer work. Nothing exotic on paper. But the *way* those sessions ran is where things get interesting.
+
+---
+
+## The Thing I Didn't Realize I Was Doing
+
+Here's the stat that stopped me: **10% of my messages were sent while another Claude Code session was already running.**
+
+I've been "multi-Clauding" (running parallel sessions simultaneously) without fully registering it as a deliberate workflow choice. It just... became how I work. One session handles a PR on the BFF layer while another is moving through frontend component work. I treat them like separate terminals rather than sequential tasks.
+
+The deeper version of this pattern shows up in two other numbers: **257 Agent calls** and **176 TaskCreate invocations** over the month.
+
+For context: those are Claude Code's sub-agent capabilities. When a task is complex enough, I've been spinning up delegated agents to handle parallel subtasks (one implements a component, another investigates a production failure) and then synthesizing the results. I wasn't tracking this consciously. It just emerged as the natural way to handle work that had multiple independent threads.
+
+Looking at those numbers, I realized: I stopped thinking about *writing code* somewhere along the way, and started thinking about *coordinating work*. The mental model shifted from "me and an AI pair programmer" to "me as a tech lead, Claude Code as a team."
+
+That's not a small shift. It changes what you ask for, what you delegate, what you review versus what you trust. And it happened gradually enough that I missed it in real time.
+
+---
+
+## Where Things Actually Broke
+
+The 96% achievement rate sounds clean. The friction data underneath it is more honest.
+
+Three patterns kept appearing across my sessions, and they're worth naming directly because they cost me real time.
+
+### 1. Wrong Branch, Wrong Context
+
+The single most recurring failure mode: Claude committing to the wrong branch or operating on the wrong PR.
+
+In one session, Claude committed to `develop` instead of my feature branch and included stale documentation files in the PR diff, requiring cleanup and a cherry-pick rebase to fix. In another, it was looking at PR #3261 when I needed it on #3255, and I had to manually redirect it mid-session. Wrong branch commits showed up across multiple sessions, each requiring varying degrees of cleanup.
+
+This isn't a model failure. I wasn't establishing branch state at session start. I'd open a session, describe what I needed, and assume Claude could figure out the git context from there. It usually couldn't, or got it slightly wrong in ways that compounded.
+
+**The fix is embarrassingly simple:** explicitly state the target branch at the start of any commit-related session. One sentence: "We're working on `feature/registration-status-dropdown`. Don't touch `develop`." I've started doing this and the wrong-branch errors have dropped to near zero.
+
+### 2. Ignoring Existing Codebase Patterns
+
+This one stung more because the errors were invisible until they were already fully implemented.
+
+My codebase has established patterns for enum handling: a middleware approach using `isValidEnumValue` instead of service-level normalization with fallback logic. Claude Code, not knowing this, implemented the generic version. Correct by standard reasoning, but wrong for my codebase. Full revert, full redo.
+
+Same issue with string formatting: my project uses a `{0}` placeholder pattern for dynamic message strings. Claude used a function instead. Another correction cycle.
+
+These feel like Claude Code mistakes. They're not, really. I hadn't documented these conventions anywhere Claude could reference them. I was relying on it to infer codebase-specific patterns from context alone, which it can't reliably do when those patterns aren't in the files it's reading.
+
+**The fix:** CLAUDE.md. Not as a boilerplate file that ships with every project, but as an actual record of the conventions that have caused friction: enum handling, string placeholders, branch naming, design token usage. I've been treating it as optional. It's not.
+
+### 3. UI Iteration Cycles
+
+Styling changes consistently took more rounds than they should have. My icon hover fix went through three iterations: first approach reverted by me, second blocked by an explicit color override on a span element, third finally correct. And Claude used `text.primary` instead of `text.secondary` for the color token along the way.
+
+The pattern: Claude was guessing at available design tokens instead of checking the theme file first. The information existed in the codebase. It just wasn't being consulted before implementation started.
+
+**The fix:** For any UI work, have Claude read the theme file and enumerate available tokens *before* proposing changes. One extra step at the start eliminates two or three correction cycles at the end.
+
+---
+
+## The Through-Line
+
+Here's what I kept coming back to as I read through the friction report: every single failure traced back to missing context, not model capability.
+
+Wrong branches. I didn't establish git state upfront.
+Wrong patterns. I didn't document codebase conventions where Claude could find them.
+Wrong tokens. I didn't point Claude at the design system before asking for styling changes.
+
+The tool didn't fail me. I was under-briefing it, consistently, in the same categories, for a month. And because each individual miss was small (a revert here, a correction there) I didn't see the cumulative pattern until the data showed it to me.
+
+That's the thing about getting a report like this: it aggregates what individual sessions obscure. You can't see a pattern in the moment. You need the month's worth of data laid out to see that you've been making the same mistake seventeen times.
+
+---
+
+## Where This Is Heading
+
+The insights report ended with a section called "On the Horizon," covering capabilities that are possible now but that I haven't fully wired up yet. I want to share three of them because they represent where I think serious Claude Code workflows are going.
+
+**Autonomous TDD pipelines.** I'm already doing TDD with Claude Code, but each cycle still requires manual shepherding between phases. The next version: kick off a feature ticket, have Claude write failing tests from acceptance criteria, implement until green, lint, and open a draft PR, all without me in the middle. With sub-agent orchestration (I'm already at 257 Agent calls), the infrastructure for this already exists. It's a prompting and CLAUDE.md problem now, not a capability problem.
+
+**Parallel multi-repo agents.** My work constantly crosses two repos (BFF and frontend) and the current workflow is sequential: finish the backend enum, switch context, implement the frontend. The parallel version: two sub-agents, one per repo, coordinating from a shared specification, producing aligned PRs simultaneously. Git worktrees make this feasible. I've been experimenting with them but haven't fully wired up the parallel agent pattern yet.
+
+**Self-healing PR review loops.** A significant chunk of my sessions (roughly 14) were dedicated to addressing PR review feedback. Type casts, lint fixes, field renames. Mechanical work. Claude could autonomously fetch PR review comments via GitHub CLI, categorize them, apply fixes, verify tests pass, and push, turning a 30-minute feedback cycle into something that runs while I'm in a different context. The GitHub MCP server is the missing piece I haven't set up yet.
+
+All three of these are real, near-term workflows, not speculative futures. The primitives exist. The gap is setup work I haven't done.
+
+---
+
+## What This All Actually Means
+
+The developers I see getting the most out of AI coding tools aren't necessarily the ones who've found the best prompts. They're the ones who've gotten good at *context management*: understanding what information the model needs to do good work, and making sure it has it.
+
+Branch state. Codebase conventions. Design system references. Acceptance criteria. These aren't nice-to-haves. They're the inputs that determine output quality. When I gave Claude Code what it needed, the 96% achievement rate speaks for itself. When I didn't, I got the revert cycles that showed up in the friction data.
+
+The bottleneck in AI-assisted development isn't the model's capability. It's how precisely you can articulate context, intent, and constraints before the work starts.
+
+A month of data made that very clear.
+
+---
+
+*If you're using Claude Code, you can generate your own insights report directly from the tool. Curious what your goal achievement rate looks like, and what your friction data says about your workflow.*
