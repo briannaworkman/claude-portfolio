@@ -11,8 +11,8 @@ export function formatStats(month: MonthData): OutputLine[] {
   const rows = [
     { label: 'Goal Rate', value: `${m.goalRate}%`, note: `across ${m.sessions} sessions` },
     { label: 'Messages', value: m.messages.toLocaleString(), note: `${m.msgsPerDay}/day avg` },
-    { label: 'Commits', value: String(m.commits), note: '' },
-    { label: 'Agent Calls', value: String(m.agentCalls), note: `+ ${m.taskCreates} TaskCreate` },
+    { label: 'Commits', value: m.commits.toLocaleString(), note: '' },
+    { label: 'Agent Calls', value: m.agentCalls.toLocaleString(), note: `+ ${m.taskCreates} TaskCreate` },
     { label: 'Friction', value: String(m.frictionScore), note: '' },
   ];
 
@@ -26,8 +26,8 @@ export function formatStats(month: MonthData): OutputLine[] {
     return line(`  ${label}  ${value}${note}`);
   });
 
-  const labelW = Math.max(...month.workBreakdown.map((w) => w.label.length));
-  const sessionW = Math.max(...month.workBreakdown.map((w) => String(w.sessions).length));
+  const labelW = Math.max(0, ...month.workBreakdown.map((w) => w.label.length));
+  const sessionW = Math.max(0, ...month.workBreakdown.map((w) => String(w.sessions).length));
 
   const workLines = month.workBreakdown.map((w) => {
     const label = w.label.padEnd(labelW);

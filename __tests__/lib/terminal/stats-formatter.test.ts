@@ -33,13 +33,13 @@ describe('formatStats', () => {
   it('includes commit count', () => {
     const lines = formatStats(month);
     const body = lines.map((l) => l.text).join('\n');
-    expect(body).toContain(String(month.metrics.commits));
+    expect(body).toContain(month.metrics.commits.toLocaleString());
   });
 
   it('includes agent call count', () => {
     const lines = formatStats(month);
     const body = lines.map((l) => l.text).join('\n');
-    expect(body).toContain(String(month.metrics.agentCalls));
+    expect(body).toContain(month.metrics.agentCalls.toLocaleString());
   });
 
   it('includes friction score', () => {
