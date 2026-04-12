@@ -87,11 +87,33 @@ test.describe('Stats page', () => {
     await expect(page.locator('nav a[href="/stats"]')).toBeVisible();
   });
 
-  test('stats tabs are all present', async ({ page }) => {
+  test('all five tabs are present', async ({ page }) => {
     await page.goto('/stats');
-    for (const label of ['metrics', 'trends', 'assessment']) {
+    for (const label of ['metrics', 'trends', 'assessment', 'on the horizon', 'implemented']) {
       await expect(page.locator(`button:has-text("${label}")`).first()).toBeVisible();
     }
+  });
+
+  test('active month button has green styling', async ({ page }) => {
+    await page.goto('/stats');
+    const activeBtn = page.locator('button:has-text("2026-04")');
+    await expect(activeBtn).toBeVisible();
+    await expect(activeBtn).toHaveClass(/text-\[#00ff9d\]/);
+  });
+
+  test('metrics tab shows goal rate and headline stats', async ({ page }) => {
+    await page.goto('/stats');
+    await expect(page.locator('text=Goal Rate')).toBeVisible();
+    await expect(page.locator('text=Messages')).toBeVisible();
+    await expect(page.locator('text=Commits')).toBeVisible();
+    await expect(page.locator('text=Agent Calls')).toBeVisible();
+    await expect(page.locator('text=Friction')).toBeVisible();
+  });
+
+  test('metrics tab shows work breakdown section', async ({ page }) => {
+    await page.goto('/stats');
+    await expect(page.locator('text=Work Breakdown')).toBeVisible();
+    await expect(page.locator('text=Frontend Dev')).toBeVisible();
   });
 
   test('clicking trends tab shows charts', async ({ page }) => {
@@ -100,10 +122,18 @@ test.describe('Stats page', () => {
     await expect(page.locator('.recharts-responsive-container').first()).toBeVisible();
   });
 
-  test('month selector buttons switch active month', async ({ page }) => {
+  test('assessment tab shows strengths and rough edges', async ({ page }) => {
     await page.goto('/stats');
-    const firstMonthBtn = page.locator('button:has-text("2026-02")');
-    await firstMonthBtn.click();
-    await expect(firstMonthBtn).toHaveClass(/text-\[#00ff9d\]/);
+    await page.locator('button:has-text("assessment")').click();
+    await expect(page.locator('text=Strengths')).toBeVisible();
+    await expect(page.locator('text=Rough Edges')).toBeVisible();
+    await expect(page.locator('text=Summary')).toBeVisible();
+  });
+
+  test('horizon tab shows items with effort badges', async ({ page }) => {
+    await page.goto('/stats');
+    await page.locator('button:has-text("on the horizon")').click();
+    await expect(page.locator('text=Autonomous TDD Pipelines')).toBeVisible();
+    await expect(page.locator('text=high').first()).toBeVisible();
   });
 });
