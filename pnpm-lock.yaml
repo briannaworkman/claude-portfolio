@@ -75,10 +75,6 @@ importers:
       vitest:
         specifier: ^4.1.0
         version: 4.1.0(@types/node@20.19.37)(jsdom@25.0.1)(vite@8.0.0(@types/node@20.19.37)(jiti@2.6.1)(yaml@2.8.2))
-    optionalDependencies:
-      '@rolldown/binding-darwin-arm64':
-        specifier: 1.0.0-rc.9
-        version: 1.0.0-rc.9
 
 packages:
 
