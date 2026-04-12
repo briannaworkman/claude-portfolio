@@ -10,7 +10,7 @@ export const usesCategories: UsesCategory[] = [
   },
   {
     name: 'Terminal',
-    items: [{ name: 'iTerm2', description: 'With Zsh and Oh My Zsh.' }],
+    items: [{ name: 'cmux', description: 'Native macOS terminal built on Ghostty for managing multiple AI coding agents.' }],
   },
   {
     name: 'AI Tools',
