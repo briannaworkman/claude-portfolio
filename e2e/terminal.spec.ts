@@ -72,4 +72,23 @@ test.describe('Terminal mode', () => {
     await page.keyboard.press('Enter');
     await expect(page.getByTestId('terminal')).toContainText('frontend', { timeout: 10_000 });
   });
+
+  test('stats command shows Claude Code metrics', async ({ page }) => {
+    await page.goto('/');
+    await page.click('button:has-text("terminal")');
+    await page.getByTestId('terminal').locator('input').fill('stats');
+    await page.keyboard.press('Enter');
+    await expect(page.getByTestId('terminal')).toContainText('Claude Code Stats');
+    await expect(page.getByTestId('terminal')).toContainText('Goal Rate');
+    await expect(page.getByTestId('terminal')).toContainText('Messages');
+    await expect(page.getByTestId('terminal')).toContainText('Work Breakdown');
+  });
+
+  test('stats with invalid slug shows error', async ({ page }) => {
+    await page.goto('/');
+    await page.click('button:has-text("terminal")');
+    await page.getByTestId('terminal').locator('input').fill('stats bad-slug');
+    await page.keyboard.press('Enter');
+    await expect(page.getByTestId('terminal')).toContainText('not found');
+  });
 });

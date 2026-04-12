@@ -32,6 +32,9 @@ export function TerminalWelcome() {
             <div>
               Type <span className="text-text-primary">ls projects</span> to browse my work
             </div>
+            <div>
+              Type <span className="text-text-primary">stats</span> to see my Claude Code usage
+            </div>
           </div>
         </div>
 
