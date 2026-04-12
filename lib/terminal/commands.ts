@@ -3,10 +3,10 @@ import { type Availability, about } from '@/data/about';
 import { claudeTagLabel, projects } from '@/data/projects';
 import { skillCategories } from '@/data/skills';
 import { social } from '@/data/social';
+import { STATS_DATA } from '@/data/stats';
 import { usesCategories } from '@/data/uses';
 import type { PostMeta } from '@/lib/mdx';
 import { parseCommand } from '@/lib/terminal/parser';
-import { STATS_DATA } from '@/data/stats';
 import { formatStats } from '@/lib/terminal/stats-formatter';
 
 type StreamCallback = (chunk: string) => void;
@@ -222,10 +222,7 @@ export async function runCommand(input: string, onStream: StreamCallback): Promi
         if (!month) {
           const available = STATS_DATA.map((d) => d.slug).join(', ');
           return [
-            line(
-              `error: month '${slug}' not found. available months: ${available}`,
-              'error',
-            ),
+            line(`error: month '${slug}' not found. available months: ${available}`, 'error'),
           ];
         }
         return formatStats(month);

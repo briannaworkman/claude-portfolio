@@ -12,7 +12,11 @@ export function formatStats(month: MonthData): OutputLine[] {
     { label: 'Goal Rate', value: `${m.goalRate}%`, note: `across ${m.sessions} sessions` },
     { label: 'Messages', value: m.messages.toLocaleString(), note: `${m.msgsPerDay}/day avg` },
     { label: 'Commits', value: m.commits.toLocaleString(), note: '' },
-    { label: 'Agent Calls', value: m.agentCalls.toLocaleString(), note: `+ ${m.taskCreates} TaskCreate` },
+    {
+      label: 'Agent Calls',
+      value: m.agentCalls.toLocaleString(),
+      note: `+ ${m.taskCreates} TaskCreate`,
+    },
     { label: 'Friction', value: String(m.frictionScore), note: '' },
   ];
 
@@ -48,6 +52,8 @@ export function formatStats(month: MonthData): OutputLine[] {
     line('Work Breakdown:'),
     ...workLines,
     line(''),
-    line(`  Multi-clauding: ${m.multiClaudingPct}%  ·  TaskCreate: ${m.taskCreates}  ·  Sessions: ${m.sessions}`),
+    line(
+      `  Multi-clauding: ${m.multiClaudingPct}%  ·  TaskCreate: ${m.taskCreates}  ·  Sessions: ${m.sessions}`,
+    ),
   ];
 }
