@@ -16,7 +16,7 @@ export function StatsDashboard() {
 
   const current = STATS_DATA[activeMonth];
   const prev = activeMonth > 0 ? STATS_DATA[activeMonth - 1] : null;
-  const maxBreakdown = Math.max(...current.workBreakdown.map((w) => w.sessions));
+  const maxBreakdown = current.workBreakdown.reduce((sum, w) => sum + w.sessions, 0);
 
   const dGoalRate = getDeltaPct(current, prev, 'goalRate');
   const dMessages = getDelta(current, prev, 'messages');
