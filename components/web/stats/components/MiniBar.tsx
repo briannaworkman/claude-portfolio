@@ -20,7 +20,9 @@ export function MiniBar({
           style={{ width: `${Math.min((value / max) * 100, 100)}%`, background: color }}
         />
       </div>
-      <div className="w-6 text-xs font-mono text-white/50 text-right shrink-0">{Math.round((value / max) * 100)}%</div>
+      <div className="w-6 text-xs font-mono text-white/50 text-right shrink-0">
+        {Math.round((value / max) * 100)}%
+      </div>
     </div>
   );
 }
