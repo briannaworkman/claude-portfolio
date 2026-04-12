@@ -10,7 +10,13 @@ export const usesCategories: UsesCategory[] = [
   },
   {
     name: 'Terminal',
-    items: [{ name: 'cmux', description: 'Native macOS terminal built on Ghostty for managing multiple AI coding agents.' }],
+    items: [
+      {
+        name: 'cmux',
+        description:
+          'Native macOS terminal built on Ghostty for managing multiple AI coding agents.',
+      },
+    ],
   },
   {
     name: 'AI Tools',
