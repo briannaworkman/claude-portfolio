@@ -124,7 +124,10 @@ export async function runCommand(input: string, onStream: StreamCallback): Promi
       return [
         line('Projects:'),
         ...projects.map((p) => {
-          const badge = p.claudeTag ? ` [${claudeTagLabel[p.claudeTag]}]` : '';
+          const badge =
+            p.claudeTags.length > 0
+              ? ` [${p.claudeTags.map((t) => claudeTagLabel[t]).join(' + ')}]`
+              : '';
           return line(`  ${p.slug}${badge} — ${p.title}`);
         }),
       ];
@@ -148,7 +151,8 @@ export async function runCommand(input: string, onStream: StreamCallback): Promi
         line(''),
         line(`tags: ${project.tags.join(', ')}`),
       ];
-      if (project.claudeTag) lines.push(line(`claude: ${claudeTagLabel[project.claudeTag]}`));
+      if (project.claudeTags.length > 0)
+        lines.push(line(`claude: ${project.claudeTags.map((t) => claudeTagLabel[t]).join(' + ')}`));
       if (project.url) lines.push(line(`url: ${project.url}`));
       if (project.repo) lines.push(line(`repo: ${project.repo}`));
       return lines;

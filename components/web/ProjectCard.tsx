@@ -44,16 +44,22 @@ export function ProjectCard({ project }: Props) {
 
       <p className="text-sm text-text-muted">{project.description}</p>
 
-      <div className="flex flex-wrap items-center gap-2 mt-auto pt-2">
-        <ClaudeTagBadge tag={project.claudeTag} />
-        {project.tags.map((tag) => (
-          <span
-            key={tag}
-            className="text-xs font-mono px-2 py-0.5 rounded bg-border text-text-muted"
-          >
-            {tag}
-          </span>
-        ))}
+      <div className="flex flex-col gap-2 mt-auto pt-2">
+        {project.claudeTags.length > 0 && (
+          <div className="flex flex-wrap items-center gap-2">
+            <ClaudeTagBadge tags={project.claudeTags} />
+          </div>
+        )}
+        <div className="flex flex-wrap items-center gap-2">
+          {project.tags.map((tag) => (
+            <span
+              key={tag}
+              className="text-xs font-mono px-2 py-0.5 rounded bg-border text-text-muted"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
       </div>
     </article>
   );
