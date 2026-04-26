@@ -17,10 +17,12 @@ describe('data/projects', () => {
     }
   });
 
-  it('claudeTag is null, built-with, or powered-by', () => {
-    const valid = new Set([null, 'built-with', 'powered-by']);
+  it('claudeTags contains only built-with or powered-by values', () => {
+    const valid = new Set(['built-with', 'powered-by']);
     for (const p of projects) {
-      expect(valid.has(p.claudeTag)).toBe(true);
+      for (const tag of p.claudeTags) {
+        expect(valid.has(tag)).toBe(true);
+      }
     }
   });
 });

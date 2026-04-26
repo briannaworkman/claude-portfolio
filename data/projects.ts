@@ -8,7 +8,7 @@ export type Project = {
   repo?: string;
   tags: string[];
   featured: boolean;
-  claudeTag: ClaudeTag | null;
+  claudeTags: ClaudeTag[];
 };
 
 export const claudeTagLabel: Record<ClaudeTag, string> = {
@@ -18,12 +18,23 @@ export const claudeTagLabel: Record<ClaudeTag, string> = {
 
 export const projects: Project[] = [
   {
+    slug: 'luna',
+    title: 'Luna',
+    description:
+      'Multi-agent lunar research co-pilot powered by Opus 4.7. Helps curious non-specialists reason across real NASA data.',
+    url: 'https://luna-copilot.vercel.app/',
+    repo: 'https://github.com/briannaworkman/luna',
+    tags: ['Next.js', 'TypeScript', 'Anthropic SDK'],
+    featured: true,
+    claudeTags: ['built-with', 'powered-by'],
+  },
+  {
     slug: 'claude-portfolio',
     title: 'Claude Portfolio',
     description: 'This portfolio — built from scratch with Claude Code.',
     repo: 'https://github.com/briannaworkman/claude-portfolio',
     tags: ['Next.js', 'TypeScript', 'Tailwind'],
     featured: true,
-    claudeTag: 'built-with',
+    claudeTags: ['built-with'],
   },
 ];

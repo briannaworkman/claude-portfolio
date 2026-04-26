@@ -45,7 +45,7 @@ export function ProjectCard({ project }: Props) {
       <p className="text-sm text-text-muted">{project.description}</p>
 
       <div className="flex flex-wrap items-center gap-2 mt-auto pt-2">
-        <ClaudeTagBadge tag={project.claudeTag} />
+        <ClaudeTagBadge tags={project.claudeTags} />
         {project.tags.map((tag) => (
           <span
             key={tag}
