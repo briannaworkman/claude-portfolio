@@ -13,10 +13,9 @@ describe('ClaudeTagBadge', () => {
     expect(screen.getByText('Powered by Claude')).toBeInTheDocument();
   });
 
-  it('renders both badges when both tags are present', () => {
+  it('renders combined label when both tags are present', () => {
     render(<ClaudeTagBadge tags={['built-with', 'powered-by']} />);
-    expect(screen.getByText('Built with Claude')).toBeInTheDocument();
-    expect(screen.getByText('Powered by Claude')).toBeInTheDocument();
+    expect(screen.getByText('Built & powered by Claude')).toBeInTheDocument();
   });
 
   it('renders nothing for empty array', () => {
