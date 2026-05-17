@@ -3,10 +3,10 @@ import type { DeltaResult } from '../utils';
 export function FrictionCard({ value, delta }: { value: number; delta?: DeltaResult | null }) {
   return (
     <div className="relative border border-rose-500/20 bg-rose-950/15 rounded p-4 overflow-hidden">
-      <div className="flex items-start justify-between mb-2">
-        <div className="text-xs font-mono text-rose-400/60 uppercase tracking-widest">Friction</div>
+      <div className="relative mb-2">
+        <div className="text-xs font-mono text-rose-400/60 uppercase tracking-widest pr-14">Friction</div>
         {delta && (
-          <span className="text-xs font-mono font-semibold" style={{ color: delta.color }}>
+          <span className="absolute top-0 right-0 text-xs font-mono font-semibold whitespace-nowrap" style={{ color: delta.color }}>
             {delta.display}
           </span>
         )}

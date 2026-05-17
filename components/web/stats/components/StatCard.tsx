@@ -19,10 +19,10 @@ export function StatCard({
 }) {
   return (
     <div className="relative border border-white/8 bg-white/3 rounded p-4 overflow-hidden">
-      <div className="flex items-start justify-between mb-2">
-        <div className="text-xs font-mono text-white/35 uppercase tracking-widest">{label}</div>
+      <div className="relative mb-2">
+        <div className="text-xs font-mono text-white/35 uppercase tracking-widest pr-14">{label}</div>
         {delta && (
-          <span className="text-xs font-mono font-semibold" style={{ color: delta.color }}>
+          <span className="absolute top-0 right-0 text-xs font-mono font-semibold whitespace-nowrap" style={{ color: delta.color }}>
             {delta.display}
           </span>
         )}

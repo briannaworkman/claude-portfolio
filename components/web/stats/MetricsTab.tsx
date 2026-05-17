@@ -28,12 +28,12 @@ export function MetricsTab({
     <div className="space-y-5 stats-fade-up">
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
         <div className="col-span-2 sm:col-span-1 border border-[#00ff9d]/20 bg-[#00ff9d]/5 rounded p-4">
-          <div className="flex items-start justify-between mb-1">
-            <div className="text-xs font-mono text-[#00ff9d]/60 uppercase tracking-widest">
+          <div className="relative mb-1">
+            <div className="text-xs font-mono text-[#00ff9d]/60 uppercase tracking-widest pr-14">
               Goal Rate
             </div>
             {dGoalRate && (
-              <span className="text-xs font-mono font-semibold" style={{ color: dGoalRate.color }}>
+              <span className="absolute top-0 right-0 text-xs font-mono font-semibold whitespace-nowrap" style={{ color: dGoalRate.color }}>
                 {dGoalRate.display}
               </span>
             )}
