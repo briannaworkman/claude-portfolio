@@ -37,7 +37,7 @@ export function AssessmentTab() {
                   key={i}
                   type="button"
                   onClick={() => setActiveIdx(i)}
-                  className={`w-1.5 h-1.5 rounded-full transition-all duration-200 ${
+                  className={`cursor-pointer w-1.5 h-1.5 rounded-full transition-all duration-200 ${
                     i === activeIdx ? 'bg-[#00ff9d]' : 'bg-white/20 hover:bg-white/40'
                   }`}
                 />
