@@ -1,3 +1,4 @@
+export { CardHeader } from './CardHeader';
 export { FrictionCard } from './FrictionCard';
 export { HorizonCard } from './HorizonCard';
 export { ImplementedCard } from './ImplementedCard';

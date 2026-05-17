@@ -96,7 +96,7 @@ test.describe('Stats page', () => {
 
   test('active month button has green styling', async ({ page }) => {
     await page.goto('/stats');
-    const activeBtn = page.locator('button:has-text("2026-04")');
+    const activeBtn = page.locator('button:has-text("2026-05")');
     await expect(activeBtn).toBeVisible();
     await expect(activeBtn).toHaveClass(/text-\[#00ff9d\]/);
   });
@@ -113,7 +113,7 @@ test.describe('Stats page', () => {
   test('metrics tab shows work breakdown section', async ({ page }) => {
     await page.goto('/stats');
     await expect(page.locator('text=Work Breakdown')).toBeVisible();
-    await expect(page.locator('text=Frontend Dev')).toBeVisible();
+    await expect(page.locator('text=Feature Dev')).toBeVisible();
   });
 
   test('clicking trends tab shows charts', async ({ page }) => {
@@ -133,7 +133,28 @@ test.describe('Stats page', () => {
   test('horizon tab shows items with effort badges', async ({ page }) => {
     await page.goto('/stats');
     await page.locator('button:has-text("on the horizon")').click();
-    await expect(page.locator('text=Autonomous TDD Pipelines')).toBeVisible();
+    await expect(page.locator('text=Autonomous Linear-to-PR Ticket Swarm')).toBeVisible();
     await expect(page.locator('text=high').first()).toBeVisible();
+  });
+
+  test('outcomes bar is visible on May which has outcomes data', async ({ page }) => {
+    await page.goto('/stats');
+    await expect(page.locator('[data-testid="outcomes-bar"]')).toBeVisible();
+  });
+
+  test('outcomes bar is absent on April which has no outcomes data', async ({ page }) => {
+    await page.goto('/stats');
+    await page.locator('button:has-text("2026-04")').click();
+    await expect(page.locator('[data-testid="outcomes-bar"]')).not.toBeVisible();
+  });
+
+  test('assessment summary carousel switches text on dot click', async ({ page }) => {
+    await page.goto('/stats');
+    await page.locator('button:has-text("assessment")').click();
+    const summary = page.locator('p.stats-fade-up');
+    const firstText = await summary.textContent();
+    await page.locator('[data-testid="summary-dots"] button').nth(1).click();
+    const secondText = await summary.textContent();
+    expect(secondText).not.toBe(firstText);
   });
 });

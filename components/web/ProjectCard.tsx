@@ -45,11 +45,7 @@ export function ProjectCard({ project }: Props) {
       <p className="text-sm text-text-muted">{project.description}</p>
 
       <div className="flex flex-col gap-2 mt-auto pt-2">
-        {project.claudeTags.length > 0 && (
-          <div className="flex flex-wrap items-center gap-2">
-            <ClaudeTagBadge tags={project.claudeTags} />
-          </div>
-        )}
+        <ClaudeTagBadge tags={project.claudeTags} />
         <div className="flex flex-wrap items-center gap-2">
           {project.tags.map((tag) => (
             <span

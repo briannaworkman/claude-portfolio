@@ -54,3 +54,31 @@ describe('data/social', () => {
     }
   });
 });
+
+import { STATS_DATA } from '@/data/stats';
+
+describe('data/stats', () => {
+  it('STATS_DATA is ordered oldest-first by slug', () => {
+    for (let i = 1; i < STATS_DATA.length; i++) {
+      expect(STATS_DATA[i].slug >= STATS_DATA[i - 1].slug).toBe(true);
+    }
+  });
+
+  it('outcomes values are non-negative when present', () => {
+    for (const month of STATS_DATA) {
+      if (!month.outcomes) continue;
+      const { fully, mostly, partially, notAchieved, unclear } = month.outcomes;
+      for (const val of [fully, mostly, partially, notAchieved, unclear]) {
+        expect(val).toBeGreaterThanOrEqual(0);
+      }
+    }
+  });
+
+  it('outcomes total is positive when present', () => {
+    for (const month of STATS_DATA) {
+      if (!month.outcomes) continue;
+      const { fully, mostly, partially, notAchieved, unclear } = month.outcomes;
+      expect(fully + mostly + partially + notAchieved + unclear).toBeGreaterThan(0);
+    }
+  });
+});

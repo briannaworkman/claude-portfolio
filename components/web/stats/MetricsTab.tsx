@@ -1,5 +1,5 @@
-import type { MonthData } from '@/data/stats';
-import { FrictionCard, MiniBar, StatCard, TerminalBadge } from './components';
+import type { MonthData, Outcomes } from '@/data/stats';
+import { CardHeader, FrictionCard, MiniBar, StatCard, TerminalBadge } from './components';
 import { GREEN } from './constants';
 import type { DeltaResult } from './utils';
 
@@ -12,6 +12,40 @@ type MetricsTabProps = {
   dGoalRate: DeltaResult | null;
   dFriction: DeltaResult | null;
 };
+
+const OUTCOME_SEGMENTS: { key: keyof Outcomes; label: string; color: string }[] = [
+  { key: 'fully', label: 'fully achieved', color: GREEN },
+  { key: 'mostly', label: 'mostly achieved', color: '#34d399' },
+  { key: 'partially', label: 'partially achieved', color: '#f59e0b' },
+  { key: 'notAchieved', label: 'not achieved', color: '#f43f5e' },
+  { key: 'unclear', label: 'unclear', color: 'rgba(255,255,255,0.15)' },
+];
+
+function OutcomesBar({ outcomes }: { outcomes: Outcomes }) {
+  const total = OUTCOME_SEGMENTS.reduce((sum, s) => sum + outcomes[s.key], 0) || 1;
+  const visible = OUTCOME_SEGMENTS.filter((s) => outcomes[s.key] > 0).map((s) => ({
+    ...s,
+    pct: `${(outcomes[s.key] / total) * 100}%`,
+  }));
+  return (
+    <div data-testid="outcomes-bar" className="relative mt-3">
+      <div className="flex h-1.5 rounded-full overflow-hidden gap-px">
+        {visible.map((s) => (
+          <div key={s.key} style={{ width: s.pct, background: s.color }} />
+        ))}
+      </div>
+      <div className="absolute inset-0 flex gap-px">
+        {visible.map((s) => (
+          <div key={s.key} className="group/seg relative cursor-default" style={{ width: s.pct }}>
+            <div className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-2 -translate-x-1/2 whitespace-nowrap rounded border border-white/15 bg-[#111] px-2 py-1 font-mono text-xs text-white/60 opacity-0 transition-opacity duration-150 group-hover/seg:opacity-100">
+              {s.label} · {outcomes[s.key]}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export function MetricsTab({
   current,
@@ -28,21 +62,13 @@ export function MetricsTab({
     <div className="space-y-5 stats-fade-up">
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
         <div className="col-span-2 sm:col-span-1 border border-[#00ff9d]/20 bg-[#00ff9d]/5 rounded p-4">
-          <div className="flex items-start justify-between mb-1">
-            <div className="text-xs font-mono text-[#00ff9d]/60 uppercase tracking-widest">
-              Goal Rate
-            </div>
-            {dGoalRate && (
-              <span className="text-xs font-mono font-semibold" style={{ color: dGoalRate.color }}>
-                {dGoalRate.display}
-              </span>
-            )}
-          </div>
+          <CardHeader label="Goal Rate" delta={dGoalRate} labelClassName="text-[#00ff9d]/60" />
           <div className="text-4xl font-mono font-bold" style={{ color: GREEN }}>
             {m.goalRate}
             <span className="text-xl">%</span>
           </div>
           <div className="text-xs font-mono text-white/30 mt-1">across {m.sessions} sessions</div>
+          {current.outcomes && <OutcomesBar outcomes={current.outcomes} />}
         </div>
 
         <StatCard
