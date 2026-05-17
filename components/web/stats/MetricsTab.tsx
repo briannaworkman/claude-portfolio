@@ -1,4 +1,4 @@
-import type { MonthData } from '@/data/stats';
+import type { MonthData, Outcomes } from '@/data/stats';
 import { CardHeader, FrictionCard, MiniBar, StatCard, TerminalBadge } from './components';
 import { GREEN } from './constants';
 import type { DeltaResult } from './utils';
@@ -12,6 +12,43 @@ type MetricsTabProps = {
   dGoalRate: DeltaResult | null;
   dFriction: DeltaResult | null;
 };
+
+
+
+const OUTCOME_SEGMENTS: { key: keyof Outcomes; label: string; color: string }[] = [
+  { key: 'fully',       label: 'fully achieved',     color: '#00ff9d' },
+  { key: 'mostly',      label: 'mostly achieved',    color: '#34d399' },
+  { key: 'partially',   label: 'partially achieved', color: '#f59e0b' },
+  { key: 'notAchieved', label: 'not achieved',        color: '#f43f5e' },
+  { key: 'unclear',     label: 'unclear',             color: 'rgba(255,255,255,0.15)' },
+];
+
+function OutcomesBar({ outcomes }: { outcomes: Outcomes }) {
+  const total = OUTCOME_SEGMENTS.reduce((sum, s) => sum + outcomes[s.key], 0);
+  const visible = OUTCOME_SEGMENTS.filter((s) => outcomes[s.key] > 0);
+  return (
+    <div className="relative mt-3">
+      <div className="flex h-1.5 rounded-full overflow-hidden gap-px">
+        {visible.map((s) => (
+          <div key={s.key} style={{ width: `${(outcomes[s.key] / total) * 100}%`, background: s.color }} />
+        ))}
+      </div>
+      <div className="absolute inset-0 flex gap-px">
+        {visible.map((s) => (
+          <div
+            key={s.key}
+            className="group/seg relative cursor-default"
+            style={{ width: `${(outcomes[s.key] / total) * 100}%` }}
+          >
+            <div className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-2 -translate-x-1/2 whitespace-nowrap rounded border border-white/15 bg-[#111] px-2 py-1 font-mono text-xs text-white/60 opacity-0 transition-opacity duration-150 group-hover/seg:opacity-100">
+              {s.label} · {outcomes[s.key]}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export function MetricsTab({
   current,
@@ -34,6 +71,7 @@ export function MetricsTab({
             <span className="text-xl">%</span>
           </div>
           <div className="text-xs font-mono text-white/30 mt-1">across {m.sessions} sessions</div>
+          {current.outcomes && <OutcomesBar outcomes={current.outcomes} />}
         </div>
 
         <StatCard

@@ -37,10 +37,19 @@ export type MonthMetrics = {
   frictionScore: number;
 };
 
+export type Outcomes = {
+  fully: number;
+  mostly: number;
+  partially: number;
+  notAchieved: number;
+  unclear: number;
+};
+
 export type MonthData = {
   month: string;
   slug: string;
   metrics: MonthMetrics;
+  outcomes?: Outcomes;
   workBreakdown: WorkItem[];
   horizon: HorizonItem[];
   implemented: ImplementedItem[];
@@ -247,6 +256,13 @@ export const STATS_DATA: MonthData[] = [
       multiClaudingPct: 19,
       msgsPerDay: 68.8,
       frictionScore: 4,
+    },
+    outcomes: {
+      fully: 39,
+      mostly: 15,
+      partially: 8,
+      notAchieved: 3,
+      unclear: 2,
     },
     workBreakdown: [
       { label: 'Feature Dev', sessions: 18, color: '#00ff9d' },
