@@ -63,15 +63,21 @@ export type AssessmentItem = {
 };
 
 export type Assessment = {
-  summary: string[];
+  summary: { slug: string; text: string }[];
   strengths: AssessmentItem[];
   roughEdges: AssessmentItem[];
 };
 
 export const ASSESSMENT: Assessment = {
   summary: [
-    'Operates Claude Code as a high-throughput engineering pipeline — running worktree-per-ticket flows end-to-end from TDD through draft PR, review response, and cleanup in single coherent sessions. Workflow has matured into full orchestration with a growing library of custom skills (panel-review, support-investigate) that compound in value over time.',
-    'Highly prolific developer running a mature, shipping-oriented AI workflow. Operates more like a tech lead than a solo coder — delegating parallel subtasks, coordinating agents, and driving multi-file changes to completion across BFF and frontend layers.',
+    {
+      slug: '2026-05',
+      text: 'Operates Claude Code as a high-throughput engineering pipeline — running worktree-per-ticket flows end-to-end from TDD through draft PR, review response, and cleanup in single coherent sessions. Workflow has matured into full orchestration with a growing library of custom skills (panel-review, support-investigate) that compound in value over time.',
+    },
+    {
+      slug: '2026-04',
+      text: 'Highly prolific developer running a mature, shipping-oriented AI workflow. Operates more like a tech lead than a solo coder — delegating parallel subtasks, coordinating agents, and driving multi-file changes to completion across BFF and frontend layers.',
+    },
   ],
   strengths: [
     {
@@ -305,5 +311,4 @@ export const STATS_DATA: MonthData[] = [
       },
     ],
   },
-
 ];

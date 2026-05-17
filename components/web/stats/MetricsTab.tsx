@@ -13,20 +13,20 @@ type MetricsTabProps = {
   dFriction: DeltaResult | null;
 };
 
-
 const OUTCOME_SEGMENTS: { key: keyof Outcomes; label: string; color: string }[] = [
-  { key: 'fully',       label: 'fully achieved',     color: GREEN },
-  { key: 'mostly',      label: 'mostly achieved',    color: '#34d399' },
-  { key: 'partially',   label: 'partially achieved', color: '#f59e0b' },
-  { key: 'notAchieved', label: 'not achieved',       color: '#f43f5e' },
-  { key: 'unclear',     label: 'unclear',            color: 'rgba(255,255,255,0.15)' },
+  { key: 'fully', label: 'fully achieved', color: GREEN },
+  { key: 'mostly', label: 'mostly achieved', color: '#34d399' },
+  { key: 'partially', label: 'partially achieved', color: '#f59e0b' },
+  { key: 'notAchieved', label: 'not achieved', color: '#f43f5e' },
+  { key: 'unclear', label: 'unclear', color: 'rgba(255,255,255,0.15)' },
 ];
 
 function OutcomesBar({ outcomes }: { outcomes: Outcomes }) {
   const total = OUTCOME_SEGMENTS.reduce((sum, s) => sum + outcomes[s.key], 0) || 1;
-  const visible = OUTCOME_SEGMENTS
-    .filter((s) => outcomes[s.key] > 0)
-    .map((s) => ({ ...s, pct: `${(outcomes[s.key] / total) * 100}%` }));
+  const visible = OUTCOME_SEGMENTS.filter((s) => outcomes[s.key] > 0).map((s) => ({
+    ...s,
+    pct: `${(outcomes[s.key] / total) * 100}%`,
+  }));
   return (
     <div className="relative mt-3">
       <div className="flex h-1.5 rounded-full overflow-hidden gap-px">

@@ -3,10 +3,19 @@
 import { useState } from 'react';
 import { ASSESSMENT } from '@/data/stats';
 
-function ItemChips({ month, tag, variant }: { month?: string; tag: string; variant: 'strength' | 'edge' }) {
-  const c = variant === 'strength'
-    ? { text: 'text-emerald-400/60', border: 'border-emerald-500/30' }
-    : { text: 'text-rose-400/60', border: 'border-rose-500/30' };
+function ItemChips({
+  month,
+  tag,
+  variant,
+}: {
+  month?: string;
+  tag: string;
+  variant: 'strength' | 'edge';
+}) {
+  const c =
+    variant === 'strength'
+      ? { text: 'text-emerald-400/60', border: 'border-emerald-500/30' }
+      : { text: 'text-rose-400/60', border: 'border-rose-500/30' };
   return (
     <div className="flex items-center gap-1.5 shrink-0">
       {month && (
@@ -32,9 +41,9 @@ export function AssessmentTab() {
           <div className="text-xs font-mono text-white/35 uppercase tracking-widest">Summary</div>
           {summaries.length > 1 && (
             <div className="flex items-center gap-1.5">
-              {summaries.map((_, i) => (
+              {summaries.map((summary, i) => (
                 <button
-                  key={i}
+                  key={summary.slug}
                   type="button"
                   onClick={() => setActiveIdx(i)}
                   className={`cursor-pointer w-1.5 h-1.5 rounded-full transition-all duration-200 ${
@@ -45,8 +54,11 @@ export function AssessmentTab() {
             </div>
           )}
         </div>
-        <p key={activeIdx} className="text-sm font-mono text-white/70 leading-relaxed stats-fade-up">
-          {summaries[activeIdx]}
+        <p
+          key={activeIdx}
+          className="text-sm font-mono text-white/70 leading-relaxed stats-fade-up"
+        >
+          {summaries[activeIdx].text}
         </p>
       </div>
 

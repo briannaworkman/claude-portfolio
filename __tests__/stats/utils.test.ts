@@ -62,8 +62,8 @@ describe('getDelta', () => {
     const prev = makeMonth({ messages: 1000 });
     const result = getDelta(current, prev, 'messages');
     expect(result).not.toBeNull();
-    expect(result!.display).toBe('▲ 200');
-    expect(result!.color).toBe('#00ff9d');
+    expect(result?.display).toBe('▲ 200');
+    expect(result?.color).toBe('#00ff9d');
   });
 
   it('returns red down-arrow for a negative change', () => {
@@ -71,8 +71,8 @@ describe('getDelta', () => {
     const prev = makeMonth({ messages: 1000 });
     const result = getDelta(current, prev, 'messages');
     expect(result).not.toBeNull();
-    expect(result!.display).toBe('▼ 200');
-    expect(result!.color).toBe('#f43f5e');
+    expect(result?.display).toBe('▼ 200');
+    expect(result?.color).toBe('#f43f5e');
   });
 
   it('inverts color logic when invertGood is true (lower is better)', () => {
@@ -81,8 +81,8 @@ describe('getDelta', () => {
     const result = getDelta(current, prev, 'frictionScore', true);
     expect(result).not.toBeNull();
     // went down — normally red, but invertGood means this is good → green
-    expect(result!.display).toBe('▼ 3');
-    expect(result!.color).toBe('#00ff9d');
+    expect(result?.display).toBe('▼ 3');
+    expect(result?.color).toBe('#00ff9d');
   });
 
   it('marks an increase as bad when invertGood is true', () => {
@@ -90,8 +90,8 @@ describe('getDelta', () => {
     const prev = makeMonth({ frictionScore: 3 });
     const result = getDelta(current, prev, 'frictionScore', true);
     expect(result).not.toBeNull();
-    expect(result!.display).toBe('▲ 4');
-    expect(result!.color).toBe('#f43f5e');
+    expect(result?.display).toBe('▲ 4');
+    expect(result?.color).toBe('#f43f5e');
   });
 });
 
@@ -114,8 +114,8 @@ describe('getDeltaPct', () => {
     const prev = makeMonth({ goalRate: 90 });
     const result = getDeltaPct(current, prev, 'goalRate');
     expect(result).not.toBeNull();
-    expect(result!.display).toBe('▲ 6%');
-    expect(result!.color).toBe('#00ff9d');
+    expect(result?.display).toBe('▲ 6%');
+    expect(result?.color).toBe('#00ff9d');
   });
 
   it('shows a red down-arrow for a decrease', () => {
@@ -123,8 +123,8 @@ describe('getDeltaPct', () => {
     const prev = makeMonth({ goalRate: 90 });
     const result = getDeltaPct(current, prev, 'goalRate');
     expect(result).not.toBeNull();
-    expect(result!.display).toBe('▼ 5%');
-    expect(result!.color).toBe('#f43f5e');
+    expect(result?.display).toBe('▼ 5%');
+    expect(result?.color).toBe('#f43f5e');
   });
 
   it('inverts color logic when invertGood is true', () => {
@@ -132,7 +132,7 @@ describe('getDeltaPct', () => {
     const prev = makeMonth({ frictionScore: 3 });
     const result = getDeltaPct(current, prev, 'frictionScore', true);
     expect(result).not.toBeNull();
-    expect(result!.display).toBe('▼ 2%');
-    expect(result!.color).toBe('#00ff9d');
+    expect(result?.display).toBe('▼ 2%');
+    expect(result?.color).toBe('#00ff9d');
   });
 });
