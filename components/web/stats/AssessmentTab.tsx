@@ -40,7 +40,7 @@ export function AssessmentTab() {
         <div className="flex items-center justify-between mb-3">
           <div className="text-xs font-mono text-white/35 uppercase tracking-widest">Summary</div>
           {summaries.length > 1 && (
-            <div className="flex items-center gap-1.5">
+            <div data-testid="summary-dots" className="flex items-center gap-1.5">
               {summaries.map((summary, i) => (
                 <button
                   key={summary.slug}

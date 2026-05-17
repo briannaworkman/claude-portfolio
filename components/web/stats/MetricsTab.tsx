@@ -28,7 +28,7 @@ function OutcomesBar({ outcomes }: { outcomes: Outcomes }) {
     pct: `${(outcomes[s.key] / total) * 100}%`,
   }));
   return (
-    <div className="relative mt-3">
+    <div data-testid="outcomes-bar" className="relative mt-3">
       <div className="flex h-1.5 rounded-full overflow-hidden gap-px">
         {visible.map((s) => (
           <div key={s.key} style={{ width: s.pct, background: s.color }} />

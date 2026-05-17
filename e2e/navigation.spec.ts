@@ -136,4 +136,25 @@ test.describe('Stats page', () => {
     await expect(page.locator('text=Autonomous Linear-to-PR Ticket Swarm')).toBeVisible();
     await expect(page.locator('text=high').first()).toBeVisible();
   });
+
+  test('outcomes bar is visible on May which has outcomes data', async ({ page }) => {
+    await page.goto('/stats');
+    await expect(page.locator('[data-testid="outcomes-bar"]')).toBeVisible();
+  });
+
+  test('outcomes bar is absent on April which has no outcomes data', async ({ page }) => {
+    await page.goto('/stats');
+    await page.locator('button:has-text("2026-04")').click();
+    await expect(page.locator('[data-testid="outcomes-bar"]')).not.toBeVisible();
+  });
+
+  test('assessment summary carousel switches text on dot click', async ({ page }) => {
+    await page.goto('/stats');
+    await page.locator('button:has-text("assessment")').click();
+    const summary = page.locator('p.stats-fade-up');
+    const firstText = await summary.textContent();
+    await page.locator('[data-testid="summary-dots"] button').nth(1).click();
+    const secondText = await summary.textContent();
+    expect(secondText).not.toBe(firstText);
+  });
 });
