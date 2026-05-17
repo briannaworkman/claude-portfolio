@@ -176,6 +176,62 @@ export const ASSESSMENT: Assessment = {
 
 export const STATS_DATA: MonthData[] = [
   {
+    month: 'Mar 9 – Apr 9',
+    slug: '2026-04',
+    metrics: {
+      messages: 1328,
+      sessions: 101,
+      files: 420,
+      linesAdded: 28997,
+      linesRemoved: 2922,
+      commits: 224,
+      goalRate: 96,
+      agentCalls: 257,
+      taskCreates: 176,
+      multiClaudingPct: 10,
+      msgsPerDay: 55.3,
+      frictionScore: 3,
+    },
+    workBreakdown: [
+      { label: 'Frontend Dev', sessions: 20, color: '#00ff9d' },
+      { label: 'PR Review', sessions: 14, color: '#7c3aed' },
+      { label: 'Git / Branches', sessions: 10, color: '#3b82f6' },
+      { label: 'Docs / Knowledge', sessions: 6, color: '#f59e0b' },
+      { label: 'DevOps / Prod', sessions: 5, color: '#f43f5e' },
+    ],
+    horizon: [
+      {
+        id: '2026-04-h1',
+        title: 'Autonomous TDD Pipelines',
+        effort: 'high',
+        description:
+          'Kick off a feature ticket and have Claude autonomously write failing tests, implement, iterate to green, lint, and open a draft PR without manual shepherding.',
+      },
+      {
+        id: '2026-04-h2',
+        title: 'Parallel Multi-Repo Agents',
+        effort: 'high',
+        description:
+          'Two sub-agents per worktree coordinating from a shared spec, producing aligned BFF + frontend PRs simultaneously instead of sequential branch-switching.',
+      },
+      {
+        id: '2026-04-h3',
+        title: 'Self-Healing PR Review Loops',
+        effort: 'medium',
+        description:
+          'Claude fetches PR review comments via GitHub CLI, categorizes them, applies fixes, verifies tests pass, and pushes — turning a 30-min feedback cycle into 2 minutes.',
+      },
+      {
+        id: '2026-04-h4',
+        title: 'GitHub MCP Server',
+        effort: 'low',
+        description:
+          'Connect Claude Code to GitHub natively so it can read PR diffs and comments without manual copy-paste.',
+      },
+    ],
+    implemented: [],
+  },
+  {
     month: 'Apr 10 – May 12',
     slug: '2026-05',
     metrics: {
@@ -233,60 +289,5 @@ export const STATS_DATA: MonthData[] = [
       },
     ],
   },
-  {
-    month: 'Mar 9 – Apr 9',
-    slug: '2026-04',
-    metrics: {
-      messages: 1328,
-      sessions: 101,
-      files: 420,
-      linesAdded: 28997,
-      linesRemoved: 2922,
-      commits: 224,
-      goalRate: 96,
-      agentCalls: 257,
-      taskCreates: 176,
-      multiClaudingPct: 10,
-      msgsPerDay: 55.3,
-      frictionScore: 3,
-    },
-    workBreakdown: [
-      { label: 'Frontend Dev', sessions: 20, color: '#00ff9d' },
-      { label: 'PR Review', sessions: 14, color: '#7c3aed' },
-      { label: 'Git / Branches', sessions: 10, color: '#3b82f6' },
-      { label: 'Docs / Knowledge', sessions: 6, color: '#f59e0b' },
-      { label: 'DevOps / Prod', sessions: 5, color: '#f43f5e' },
-    ],
-    horizon: [
-      {
-        id: '2026-04-h1',
-        title: 'Autonomous TDD Pipelines',
-        effort: 'high',
-        description:
-          'Kick off a feature ticket and have Claude autonomously write failing tests, implement, iterate to green, lint, and open a draft PR without manual shepherding.',
-      },
-      {
-        id: '2026-04-h2',
-        title: 'Parallel Multi-Repo Agents',
-        effort: 'high',
-        description:
-          'Two sub-agents per worktree coordinating from a shared spec, producing aligned BFF + frontend PRs simultaneously instead of sequential branch-switching.',
-      },
-      {
-        id: '2026-04-h3',
-        title: 'Self-Healing PR Review Loops',
-        effort: 'medium',
-        description:
-          'Claude fetches PR review comments via GitHub CLI, categorizes them, applies fixes, verifies tests pass, and pushes — turning a 30-min feedback cycle into 2 minutes.',
-      },
-      {
-        id: '2026-04-h4',
-        title: 'GitHub MCP Server',
-        effort: 'low',
-        description:
-          'Connect Claude Code to GitHub natively so it can read PR diffs and comments without manual copy-paste.',
-      },
-    ],
-    implemented: [],
-  },
+
 ];
