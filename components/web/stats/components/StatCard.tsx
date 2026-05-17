@@ -1,6 +1,7 @@
 import { GREEN } from '../constants';
 import type { DeltaResult } from '../utils';
 import { fmt } from '../utils';
+import { CardHeader } from './CardHeader';
 
 export function StatCard({
   label,
@@ -19,14 +20,7 @@ export function StatCard({
 }) {
   return (
     <div className="relative border border-white/8 bg-white/3 rounded p-4 overflow-hidden">
-      <div className="relative mb-2">
-        <div className="text-xs font-mono text-white/35 uppercase tracking-widest pr-14">{label}</div>
-        {delta && (
-          <span className="absolute top-0 right-0 text-xs font-mono font-semibold whitespace-nowrap" style={{ color: delta.color }}>
-            {delta.display}
-          </span>
-        )}
-      </div>
+      <CardHeader label={label} delta={delta} />
       <span className="text-2xl font-mono font-bold" style={{ color: accent }}>
         {fmt(value)}
         {suffix}

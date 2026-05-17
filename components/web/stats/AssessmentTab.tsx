@@ -3,6 +3,24 @@
 import { useState } from 'react';
 import { ASSESSMENT } from '@/data/stats';
 
+function ItemChips({ month, tag, variant }: { month?: string; tag: string; variant: 'strength' | 'edge' }) {
+  const c = variant === 'strength'
+    ? { text: 'text-emerald-400/60', border: 'border-emerald-500/30' }
+    : { text: 'text-rose-400/60', border: 'border-rose-500/30' };
+  return (
+    <div className="flex items-center gap-1.5 shrink-0">
+      {month && (
+        <span className="text-xs font-mono text-white/30 border border-white/10 px-2 py-0.5 rounded">
+          {month}
+        </span>
+      )}
+      <span className={`text-xs font-mono ${c.text} border ${c.border} px-2 py-0.5 rounded`}>
+        {tag}
+      </span>
+    </div>
+  );
+}
+
 export function AssessmentTab() {
   const summaries = ASSESSMENT.summary;
   const [activeIdx, setActiveIdx] = useState(0);
@@ -44,16 +62,7 @@ export function AssessmentTab() {
             >
               <div className="flex items-start justify-between gap-3 mb-2">
                 <div className="font-mono text-sm text-white/90 font-semibold">{s.label}</div>
-                <div className="flex items-center gap-1.5 shrink-0">
-                  {s.month && (
-                    <span className="text-xs font-mono text-white/30 border border-white/10 px-2 py-0.5 rounded">
-                      {s.month}
-                    </span>
-                  )}
-                  <span className="text-xs font-mono text-emerald-400/60 border border-emerald-500/30 px-2 py-0.5 rounded">
-                    {s.tag}
-                  </span>
-                </div>
+                <ItemChips month={s.month} tag={s.tag} variant="strength" />
               </div>
               <p className="text-xs font-mono text-white/50 leading-relaxed">{s.detail}</p>
             </div>
@@ -70,16 +79,7 @@ export function AssessmentTab() {
             <div key={r.label} className="border border-rose-500/20 bg-rose-950/15 rounded p-4">
               <div className="flex items-start justify-between gap-3 mb-2">
                 <div className="font-mono text-sm text-white/90 font-semibold">{r.label}</div>
-                <div className="flex items-center gap-1.5 shrink-0">
-                  {r.month && (
-                    <span className="text-xs font-mono text-white/30 border border-white/10 px-2 py-0.5 rounded">
-                      {r.month}
-                    </span>
-                  )}
-                  <span className="text-xs font-mono text-rose-400/60 border border-rose-500/30 px-2 py-0.5 rounded">
-                    {r.tag}
-                  </span>
-                </div>
+                <ItemChips month={r.month} tag={r.tag} variant="edge" />
               </div>
               <p className="text-xs font-mono text-white/50 leading-relaxed">{r.detail}</p>
             </div>

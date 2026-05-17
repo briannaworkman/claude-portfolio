@@ -5,3 +5,4 @@ export { MiniBar } from './MiniBar';
 export { ScanLines } from './ScanLines';
 export { StatCard } from './StatCard';
 export { TerminalBadge } from './TerminalBadge';
+export { CardHeader } from './CardHeader';
